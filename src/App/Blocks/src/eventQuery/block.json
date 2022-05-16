@@ -1,0 +1,131 @@
+{
+	"apiVersion": 2,
+	"name": "dc-events-manager/event-query",
+	"title": "Event Query",
+	"category": "events",
+	"description": "Display a List of Events",
+	"textdomain": "dc-events-manager",
+	"attributes": {
+		"queryId": {
+			"type": "number"
+		},
+		"query": {
+			"type": "object",
+			"default": {
+				"per_page": 3,
+				"event-tags": [],
+				"order": "desc",
+				"orderby": "start",
+				"scope": "future"
+			}
+		},
+		"taxonomy": {
+			"type": "string",
+			"default": "event_tag"
+		},
+		"postType": {
+			"type": "string",
+			"default": "an_event"
+		},
+		"metaKey": {
+			"type": "string",
+			"default": "start_date"
+		},
+		"perPage": {
+			"type": "number",
+			"default": 3
+		},
+		"orderby": {
+			"type": "string",
+			"default": "start/desc"
+		},
+		"eventTags": {
+			"type": "string",
+			"default": ""
+		},
+		"layout": {
+			"type": "object",
+			"default": {
+				"type": "grid"
+			}
+		},
+		"scope": {
+			"type": "string",
+			"default": "future",
+			"enum": [ 
+				"future",
+				"past",
+				"all"
+			]
+		},
+		"dateFormat": {
+			"type": "string",
+			"default": "l, F j, Y",
+			"enum": [ 
+				"l F j, Y",
+				"l, F j, Y",
+				"D, M j, Y",
+				"F j, Y",
+				"M j, Y",
+				"m/j/Y",
+				"D, M j"
+			]
+		},
+		"timeFormat": {
+			"type": "string",
+			"default": "g:ia",
+			"enum": [ 
+				"g:i a",
+				"g:i A",
+				"g:ia",
+				"H:i"
+			]
+		},
+		"wrapperTagName": {
+			"type": "string",
+			"default": "div"
+		},
+		"tagName": {
+			"type": "string",
+			"default": "article"
+		},
+		"linkWrap": {
+			"type": "boolean",
+			"default": true
+		},
+		"display": {
+			"type": "object",
+			"default": {
+				"showTags": false,
+				"showFeaturedImage": false,
+				"showTitle": true,
+				"showDate": true,
+				"showTime": true,
+				"showEndTime": true,
+				"showLocation": true
+			}
+		}
+	},
+	"providesContext": {
+		"queryId": "queryId",
+		"query": "query",
+		"layout": "layout"
+	},
+	"supports": {
+		"html": false,
+		"color": {
+			"gradients": false,
+			"link": false,
+			"text": false,
+			"background": false
+		},
+		"typography": {
+			"fontSize": false,
+			"lineHeight": false,
+			"__experimentalFontWeight": false
+		}
+	},
+	"style": "file:../../build/style-index.css",
+	"editorScript": "dc-events-manager",
+	"editorStyle": "file:../../build/index.css"
+}

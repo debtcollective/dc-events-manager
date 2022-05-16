@@ -1,0 +1,39 @@
+{
+    "apiVersion": 2,
+    "version": "1.0.0",
+    "textdomain": "dc-events-manager",
+    "name": "dc-events-manager/events",
+    "title": "Events Component",
+    "category": "events",
+    "icon": "calendar-alt",
+    "className": "events",
+    "description": "Display events with section header and description.",
+    "keywords": [
+        "events",
+        "section"
+    ],
+    "supports": {
+        "align": false,
+        "anchor": true,
+        "color": { 
+            "background": false,
+            "text": false,
+            "gradients": false,
+            "link": false
+        },
+        "customClassName": true,
+        "defaultStylePicker": false,
+        "__experimentalLayout": false
+    },
+    "attributes": {
+        "tagName": {
+			"type": "div"
+		}
+    },
+    "variations": [],
+    "styles": [],
+    "example": {},
+    "style": "file:../../build/style-index.css",
+    "editorScript": "dc-events-manager",
+	"editorStyle": "file:../../build/index.css"
+}

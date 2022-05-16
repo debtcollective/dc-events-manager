@@ -1,0 +1,40 @@
+{
+    "apiVersion": 2,
+    "version": "1.0.0",
+    "textdomain": "dc-events-manager",
+    "name": "dc-events-manager/events-tout",
+    "title": "Events Tout",
+    "category": "events",
+    "icon": "calendar",
+    "className": "events-tout",
+    "description": "Display a tout displaying a group of events.",
+    "keywords": [
+        "events",
+        "section",
+        "tout"
+    ],
+    "supports": {
+        "align": false,
+        "anchor": true,
+        "color": { 
+            "background": false,
+            "text": false,
+            "gradients": false,
+            "link": false
+        },
+        "customClassName": true,
+        "defaultStylePicker": false,
+        "__experimentalLayout": false
+    },
+    "attributes": {
+        "tagName": {
+			"type": "div"
+		}
+    },
+    "variations": [],
+    "styles": [],
+    "example": {},
+    "style": "file:../../build/style-index.css",
+    "editorScript": "dc-events-manager",
+	"editorStyle": "file:../../build/index.css"
+}

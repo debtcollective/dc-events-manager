@@ -1,0 +1,33 @@
+{
+	"apiVersion": 2,
+	"name": "dc-events-manager/event-time",
+	"title": "Event Time",
+	"category": "events",
+	"description": "Display event time in event query.",
+	"textdomain": "dc-events-manager",
+	"attributes": {
+		"format": {
+			"type": "string",
+			"default": "g:i a"
+		}
+	},
+	"usesContext": [ "postId", "postType", "queryId" ],
+	"parent": [ "core/post-template", "dc-events-manager/event-query"],
+	"supports": {
+		"html": false,
+		"color": {
+			"gradients": false,
+			"link": false,
+			"text": false,
+			"background": false
+		},
+		"typography": {
+			"fontSize": false,
+			"lineHeight": false,
+			"__experimentalFontWeight": false
+		}
+	},
+	"style": "file:../../build/style-index.css",
+	"editorScript": "dc-events-manager",
+	"editorStyle": "file:../../build/index.css"
+}

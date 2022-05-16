@@ -1,0 +1,35 @@
+{
+    "name": "debtcollective/dc-events-manager",
+    "description": "Custom functions to extend Events Manager.",
+    "type": "wordpress-plugin",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Debt Collective",
+            "email": "pea@misfist.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "DCEventsManager\\": "src/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "platform": {
+            "php": "7.0"
+        },
+        "allow-plugins": {
+            "kylekatarnls/update-helper": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "require": {},
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+        "wp-coding-standards/wpcs": "*",
+        "automattic/phpcs-neutron-ruleset": "^3.3",
+        "phpcompatibility/phpcompatibility-wp": "^2.1",
+        "lucatume/wp-browser": "^3.0"
+    }
+}

@@ -1,0 +1,8 @@
+node_modules
+npm-debug.log
+package-lock.json
+yarn.lock
+# vendor
+!vendor/composer
+!vendor/autoload.php
+!vendor/wptrt
