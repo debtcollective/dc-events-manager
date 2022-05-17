@@ -41,7 +41,7 @@ class Settings extends Base {
 		 *
 		 */
 
-		if( ! defined( 'EM_GUTENBERG' ) && ! EM_GUTENBERG ) {
+		if( ! defined( 'EM_GUTENBERG' ) ) {
 			define( 'EM_GUTENBERG', true );
 		}
 	}
