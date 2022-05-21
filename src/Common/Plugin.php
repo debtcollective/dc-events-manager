@@ -84,6 +84,20 @@ class Plugin {
 	protected $loader;
 
 	/**
+	 * Instance of Admin class
+	 *
+	 * @var object Admin
+	 */
+	protected $plugin_admin;
+
+	/**
+	 * Instance of Frontend class
+	 *
+	 * @var object Frontend
+	 */
+	protected $plugin_public;
+
+	/**
 	 * Construct
 	 *
 	 * @param string $version
@@ -142,9 +156,9 @@ class Plugin {
 
 		$this->loader = new Loader();
 
-		new Admin( $this->version, $this->plugin_name, $this->basename );
+		$this->plugin_admin = new Admin( $this->version, $this->plugin_name, $this->basename );
 		new Blocks( $this->version, $this->plugin_name, $this->basename );
-		new Frontend( $this->version, $this->plugin_name );
+		$this->plugin_public = new Frontend( $this->version, $this->plugin_name );
 		new General( $this->version, $this->plugin_name );
 		new Integration( $this->version, $this->plugin_name );
 	}
@@ -174,12 +188,8 @@ class Plugin {
 	 * @access   private
 	 */
 	private function define_admin_hooks() {
-
-		$plugin_admin = new Admin( $this->version, $this->plugin_name, $this->basename );
-
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-
+		$this->loader->add_action( 'admin_enqueue_scripts', $this->plugin_admin, 'enqueue_styles' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $this->plugin_admin, 'enqueue_scripts' );
 	}
 
 	/**
@@ -190,12 +200,8 @@ class Plugin {
 	 * @access   private
 	 */
 	private function define_public_hooks() {
-
-		$plugin_public = new Frontend( $this->version, $this->plugin_name );
-
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
+		$this->loader->add_action( 'wp_enqueue_scripts', $this->plugin_public, 'enqueue_styles' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $this->plugin_public, 'enqueue_scripts' );
 	}
 
 	/**
