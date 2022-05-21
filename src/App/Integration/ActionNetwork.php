@@ -41,4 +41,10 @@ class ActionNetwork extends Base {
 		 */
 	}
 
+	public function call() {}
+
+	public function post_event() {}
+
+	public function post_rsvp() {}
+
 }
