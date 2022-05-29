@@ -15,7 +15,7 @@ jobs:
       - run:
           name: Deploy over SSH
           command: |
-            rsync -e 'ssh -p 12345 -o StrictHostKeyChecking=accept-new' -rtDvzhO . $SSH_USER@$SSH_HOST_DEV:$SSH_DEV_PATH
+            echo test; rsync -e 'ssh -p 12345 -o StrictHostKeyChecking=accept-new' -rtDvzhO . $SSH_USER@$SSH_HOST_DEV:$SSH_DEV_PATH
   deploy_stage:
     docker: # run the steps with Docker
       - image: cimg/php:7.4.22
