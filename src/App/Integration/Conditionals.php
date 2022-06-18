@@ -9,12 +9,12 @@ namespace DCEventsManager\App\Integration;
 use DCEventsManager\Common\Abstracts\Base;
 
 /**
- * Class CustomConditionals
+ * Class Conditionals
  *
  * @package DCEventsManager\App\General
  * @since 1.0.0
  */
-class CustomConditionals extends Base {
+class Conditionals extends Base {
 
 	/**
 	 * Constructor.

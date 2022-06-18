@@ -8,7 +8,8 @@ namespace DCEventsManager\App\Integration;
 
 use DCEventsManager\Common\Abstracts\Base;
 use DCEventsManager\App\Integration\RestFilters;
-use DCEventsManager\App\Integration\CustomConditionals;
+use DCEventsManager\App\Integration\Conditionals;
+use DCEventsManager\App\Integration\Placeholders;
 
 /**
  * Class Integration
@@ -40,7 +41,7 @@ class Integration extends Base {
 		 * @see Bootstrap::__construct
 		 *
 		 */
-		$conditionals = new CustomConditionals( $this->version, $this->plugin_name );
+		$conditionals = new Conditionals( $this->version, $this->plugin_name );
 
 	}
 
