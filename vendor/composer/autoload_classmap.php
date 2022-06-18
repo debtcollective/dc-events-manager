@@ -23,6 +23,7 @@ return array(
     'DCEventsManager\\App\\General\\Taxonomies\\EventCrmTag' => $baseDir . '/src/App/General/Taxonomies/EventCrmTag.php',
     'DCEventsManager\\App\\General\\Taxonomies\\Taxonomies' => $baseDir . '/src/App/General/Taxonomies/Taxonomies.php',
     'DCEventsManager\\App\\Integration\\ActionNetwork' => $baseDir . '/src/App/Integration/ActionNetwork.php',
+    'DCEventsManager\\App\\Integration\\CustomConditionals' => $baseDir . '/src/App/Integration/CustomConditionals.php',
     'DCEventsManager\\App\\Integration\\Integration' => $baseDir . '/src/App/Integration/Integration.php',
     'DCEventsManager\\App\\Integration\\RestFilters' => $baseDir . '/src/App/Integration/RestFilters.php',
     'DCEventsManager\\App\\Integration\\Webhooks' => $baseDir . '/src/App/Integration/Webhooks.php',
