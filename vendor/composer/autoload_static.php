@@ -40,6 +40,7 @@ class ComposerStaticInitb6453e532a437fcc54b5e8899a4ba443
         'DCEventsManager\\App\\Integration\\ActionNetwork' => __DIR__ . '/../..' . '/src/App/Integration/ActionNetwork.php',
         'DCEventsManager\\App\\Integration\\Conditionals' => __DIR__ . '/../..' . '/src/App/Integration/Conditionals.php',
         'DCEventsManager\\App\\Integration\\Integration' => __DIR__ . '/../..' . '/src/App/Integration/Integration.php',
+        'DCEventsManager\\App\\Integration\\Placeholders' => __DIR__ . '/../..' . '/src/App/Integration/Placeholders.php',
         'DCEventsManager\\App\\Integration\\RestFilters' => __DIR__ . '/../..' . '/src/App/Integration/RestFilters.php',
         'DCEventsManager\\App\\Integration\\Webhooks' => __DIR__ . '/../..' . '/src/App/Integration/Webhooks.php',
         'DCEventsManager\\Common\\Abstracts\\Base' => __DIR__ . '/../..' . '/src/Common/Abstracts/Base.php',

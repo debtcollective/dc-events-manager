@@ -7,17 +7,14 @@
 namespace DCEventsManager\App\Integration;
 
 use DCEventsManager\Common\Abstracts\Base;
-use DCEventsManager\App\Integration\RestFilters;
-use DCEventsManager\App\Integration\Conditionals;
-use DCEventsManager\App\Integration\Placeholders;
 
 /**
- * Class Integration
+ * Class Placeholders
  *
  * @package DCEventsManager\App\General
  * @since 1.0.0
  */
-class Integration extends Base {
+class Placeholders extends Base {
 
 	/**
 	 * Constructor.
@@ -39,11 +36,20 @@ class Integration extends Base {
 		 * This general class is always being instantiated as requested in the Bootstrap class
 		 *
 		 * @see Bootstrap::__construct
-		 *
 		 */
-		$conditionals = new Conditionals( $this->version, $this->plugin_name );
-		$placeholders = new Placeholders( $this->version, $this->plugin_name );
+		\add_filter( 'em_event_output_placeholder', array( $this, 'recurrences' ), 1, 3 );
+	}
 
+	/**
+	 * Show List of Recurrences
+	 *
+	 * @param string $replace
+	 * @param object $EM_Event
+	 * @param string $result
+	 * @return string   $replace
+	 */
+	public function recurrences( $replace, $EM_Event, $result ) {
+		return $replace;
 	}
 
 }
