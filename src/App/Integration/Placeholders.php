@@ -49,6 +49,36 @@ class Placeholders extends Base {
 	 * @return string   $replace
 	 */
 	public function recurrences( $replace, $EM_Event, $result ) {
+		if ( ! class_exists( '\EM_Events' ) ) {
+			return;
+		}
+
+		if( $result == '#_RECURRENCES' ) {
+			$args = array(
+				'recurrence'    => (int) $EM_Event->recurrence_id,
+				'scope'         => 'all',
+				'format_header' => '<ul class="recurrences__list">',
+				'format_footer' => '</ul>',
+			);
+
+			$args['format'] = '<li id="post-#_EVENTPOSTID" class="event-container event{is_past} past{/is_past}{is_future} future{/is_future}{is_recurrence} is-recurring{/is_recurrence}{is_current_recurrence} is-current{/is_current_recurrence}">
+				{is_not_current_recurrence}<a href="#_EVENTURL" title="#_EVENTNAME" class="recurrences__event-title">{/is_not_current_recurrence}
+				{is_current_recurrence}<div class="recurrences__event-title">{/is_current_recurrence}
+				#_EVENTNAME
+				{is_current_recurrence}</div>{/is_current_recurrence}
+				{is_not_current_recurrence}</a>{/is_not_current_recurrence}
+					<div class="event__date">
+						<time datetime="#_{Y-m-d H:i:s}">#_EVENTDATES</time>
+					</div>
+			
+					<div class="event__time event__time-start">
+						<time datetime="#_{Y-m-d H:i:s}">#_EVENTTIMES</time>
+					</div>
+				</li>';
+
+			$replace = \EM_Events::output( $args );
+		}
+
 		return $replace;
 	}
 
