@@ -16,6 +16,8 @@ use DCEventsManager\Common\Abstracts\Base;
  */
 class ContentFilters extends Base {
 
+	var $events_page_id;
+
 	/**
 	 * Constructor.
 	 *
@@ -37,6 +39,34 @@ class ContentFilters extends Base {
 		 *
 		 * @see Bootstrap::__construct
 		 */
+		$this->event_page_id = get_option( 'dbem_events_page' );
+
+		if ( ! get_option( 'dbem_events_page' ) ) {
+			// \remove_filter( 'the_content', 'em_content' );
+		} else {
+			// \add_filter( 'em_content', array( $this, 'em_content' ) );
+		}
+	}
+
+	/**
+	 * Filter Event Content
+	 *
+	 * @param string $content
+	 * @return string
+	 */
+	public function em_content_pre( string $content ) : string {
+		return $content;
+	}
+
+		/**
+		 * Filter Event Content
+		 *
+		 * @param string $content
+		 * @return string
+		 */
+	public function em_content( string $content ) : string {
+		$content = '';
+		return $content;
 	}
 
 }

@@ -42,6 +42,18 @@ class PostTypes extends Base {
 		 * @see Bootstrap::__construct
 		 */
 
+		\add_filter( 'em_cpt_event', array( $this, 'modify_event_cpt_args' ) );
+	}
+
+	/**
+	 * Modify CPT Args
+	 *
+	 * @param array $args
+	 * @return array $args
+	 */
+	public function modify_event_cpt_args( $args ) {
+		$args['description'] = '';
+		return $args;
 	}
 
 }
