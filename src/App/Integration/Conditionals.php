@@ -52,7 +52,7 @@ class Conditionals extends Base {
 	 */
 	public function is_current_recurrence( $show, $condition, $full_match, $EM_Event ) {
 		global $post;
-		if ( is_a( '\WP_Post', $post ) && 'is_current_recurrence' === $condition ) {
+		if ( is_object( $post ) && is_a( $post, '\WP_Post' ) && 'is_current_recurrence' === $condition ) {
 			$show = $post->ID === $EM_Event->post_id;
 		}
 		return $show;
@@ -69,7 +69,7 @@ class Conditionals extends Base {
 	 */
 	public function is_not_current_recurrence( $show, $condition, $full_match, $EM_Event ) {
 		global $post;
-		if ( is_a( '\WP_Post', $post ) && 'is_not_current_recurrence' === $condition ) {
+		if ( is_object( $post ) && is_a( $post, '\WP_Post' ) && 'is_not_current_recurrence' === $condition ) {
 			$show = $post->ID !== $EM_Event->post_id;
 		}
 		return $show;
