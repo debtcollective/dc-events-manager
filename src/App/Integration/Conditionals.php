@@ -37,7 +37,7 @@ class Conditionals extends Base {
 		 *
 		 * @see Bootstrap::__construct
 		 */
-		\add_action( 'em_event_output_show_condition', array( $this, 'is_current_occurrence' ), 1, 4 );
+		\add_action( 'em_event_output_show_condition', array( $this, 'is_current_recurrence' ), 1, 4 );
 		\add_action( 'em_event_output_show_condition', array( $this, 'is_not_current_recurrence' ), 1, 4 );
 	}
 
