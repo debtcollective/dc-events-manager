@@ -201,7 +201,7 @@ class Options extends Base {
 	 * @return void
 	 */
 	public function renderEventEndpointField() {
-		$value = isset( $this->options['event_endpoint'] ) ? $this->options['event_endpoint'] : \esc_url( 'https://hooks.zapier.com/hooks/catch/11803896/ba3wxa8/' );
+		$value = isset( $this->options['event_endpoint'] ) ? $this->options['event_endpoint'] : \esc_url( '' );
 
 		echo '<input type="url" name="dc_events_manager_options[event_endpoint]" class="regular-text event_endpoint_field" placeholder="' . \esc_attr__( '', 'dc-events-manager' ) . '" value="' . \esc_attr( $value ) . '">';
 	}
@@ -212,7 +212,7 @@ class Options extends Base {
 	 * @return void
 	 */
 	public function renderRegisterEndpointField() {
-		$value = isset( $this->options['register_endpoint'] ) ? $this->options['register_endpoint'] : \esc_url( 'https://hooks.zapier.com/hooks/catch/11803896/ba3wxa8/' );
+		$value = isset( $this->options['register_endpoint'] ) ? $this->options['register_endpoint'] : \esc_url( '' );
 
 		echo '<input type="url" name="dc_events_manager_options[register_endpoint]" class="regular-text register_endpoint_field" placeholder="' . \esc_attr__( '', 'dc-events-manager' ) . '" value="' . \esc_attr( $value ) . '">';
 	}
