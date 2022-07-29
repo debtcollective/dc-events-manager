@@ -99,6 +99,10 @@ class Webhooks extends Base {
 	 * @return void
 	 */
 	public function send_event_data( $post_id, $post, $update ) {
+		if( ! property_exists( $this->event_endpoint ) || empty( $this->event_endpoint ) ) {
+			return;
+		}
+
 		$EM_Event = \em_get_event( $post );
 
 		if ( $EM_Event && ! is_wp_error( $EM_Event ) ) {
