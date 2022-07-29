@@ -75,6 +75,7 @@ class Options extends Base {
 		 */
 		$this->setOptions();
 		\add_action( 'admin_menu', array( $this, 'add_admin_menu' ), 20 );
+		\add_action( 'admin_menu', array( $this, 'remove_admin_menu' ), 20 );
 		\add_action( 'admin_init', array( $this, 'init_settings' ) );
 	}
 
@@ -89,17 +90,38 @@ class Options extends Base {
 
 		\add_submenu_page(
 			'edit.php?post_type=' . \EM_POST_TYPE_EVENT,
-			\esc_html__( 'Action Network Settings', 'dc-events-manager' ),
-			\esc_html__( 'Action Network Settings', 'dc-events-manager' ),
+			\esc_html__( 'Debt Collective Events Settings', 'dc-events-manager' ),
+			\esc_html__( 'DC Settings', 'dc-events-manager' ),
 			self::OPTIONS_CAP,
 			self::OPTIONS_PAGE_NAME,
 			array( $this, 'render_page' )
 		);
+
+		\add_submenu_page(
+			'edit.php?post_type=' . \EM_POST_TYPE_EVENT,
+			\esc_html__( 'Event Cancellation Settings', 'dc-events-manager' ),
+			\esc_html__( 'Cancellation Settings', 'dc-events-manager' ),
+			self::OPTIONS_CAP,
+			'admin.php?page=stonehenge-em-cancellation',
+		);
+	}
+
+	/**
+	 * Add Menu
+	 *
+	 * @link https://developer.wordpress.org/reference/functions/remove_menu_page/
+	 *
+	 * @return void
+	 */
+	public function remove_admin_menu() {
+		\remove_menu_page( 'stonehenge-creations' );
+		\remove_menu_page( 'stonehenge_forums' );
+		\remove_menu_page( 'stonehenge_support' );
 	}
 
 	/**
 	 * Initialize the class.
-	 * 
+	 *
 	 * @since 1.0.0
 	 */
 	public function init_settings() {
@@ -117,15 +139,22 @@ class Options extends Base {
 		);
 
 		\add_settings_field(
-			'base_url',
-			\__( 'Action Network Base URL', 'dc-events-manager' ),
-			array( $this, 'renderBaseUrlField' ),
+			'event_endpoint',
+			\__( 'Event Endpoint', 'dc-events-manager' ),
+			array( $this, 'renderEventEndpointField' ),
+			self::OPTIONS_NAME,
+			self::OPTIONS_NAME . '_section'
+		);
+		\add_settings_field(
+			'register_endpoint',
+			\__( 'Register Endpoint', 'dc-events-manager' ),
+			array( $this, 'renderRegisterEndpointField' ),
 			self::OPTIONS_NAME,
 			self::OPTIONS_NAME . '_section'
 		);
 		\add_settings_field(
 			'api_key',
-			\__( 'Action Network API Key', 'dc-events-manager' ),
+			\__( 'API Key', 'dc-events-manager' ),
 			array( $this, 'renderApiKeyField' ),
 			self::OPTIONS_NAME,
 			self::OPTIONS_NAME . '_section'
@@ -171,12 +200,21 @@ class Options extends Base {
 	 *
 	 * @return void
 	 */
-	public function renderBaseUrlField() {
+	public function renderEventEndpointField() {
+		$value = isset( $this->options['event_endpoint'] ) ? $this->options['event_endpoint'] : \esc_url( 'https://hooks.zapier.com/hooks/catch/11803896/ba3wxa8/' );
 
-		$value = isset( $this->options['base_url'] ) ? $this->options['base_url'] : \esc_url( 'https://actionnetwork.org/api/v2/' );
+		echo '<input type="url" name="dc_events_manager_options[event_endpoint]" class="regular-text event_endpoint_field" placeholder="' . \esc_attr__( '', 'dc-events-manager' ) . '" value="' . \esc_attr( $value ) . '">';
+	}
 
-		echo '<input type="url" name="dc_events_manager_options[base_url]" class="regular-text base_url_field" placeholder="' . \esc_attr__( '', 'dc-events-manager' ) . '" value="' . \esc_attr( $value ) . '">';
+	/**
+	 * Render Field
+	 *
+	 * @return void
+	 */
+	public function renderRegisterEndpointField() {
+		$value = isset( $this->options['register_endpoint'] ) ? $this->options['register_endpoint'] : \esc_url( 'https://hooks.zapier.com/hooks/catch/11803896/ba3wxa8/' );
 
+		echo '<input type="url" name="dc_events_manager_options[register_endpoint]" class="regular-text register_endpoint_field" placeholder="' . \esc_attr__( '', 'dc-events-manager' ) . '" value="' . \esc_attr( $value ) . '">';
 	}
 
 	/**
@@ -188,7 +226,6 @@ class Options extends Base {
 		$value = isset( $this->options['api_key'] ) ? $this->options['api_key'] : '';
 
 		echo '<input type="text" name="dc_events_manager_options[api_key]" class="regular-text api_key_field" placeholder="' . \esc_attr__( '', 'dc-events-manager' ) . '" value="' . \esc_attr( $value ) . '">';
-
 	}
 
 	/**
@@ -323,9 +360,9 @@ class Options extends Base {
 // );
 
 // \add_settings_field(
-// 'base_url',
+// 'event_endpoint',
 // \__( 'Action Network Base URL', 'dc-events-manager' ),
-// array( $this, 'renderBaseUrlField' ),
+// array( $this, 'renderEventEndpointField' ),
 // self::OPTIONS_NAME,
 // self::OPTIONS_NAME
 // );
@@ -375,11 +412,11 @@ class Options extends Base {
 // *
 // * @return void
 // */
-// public function renderBaseUrlField() {
+// public function renderEventEndpointField() {
 
-// $value = isset( $this->options['base_url'] ) ? $this->options['base_url'] : esc_url( 'https://actionnetwork.org/api/v2/' );
+// $value = isset( $this->options['event_endpoint'] ) ? $this->options['event_endpoint'] : esc_url( 'https://actionnetwork.org/api/v2/' );
 
-// echo '<input type="url" name="dc_events_manager_options[base_url]" class="regular-text base_url_field" placeholder="' . esc_attr__( '', 'dc-events-manager' ) . '" value="' . esc_attr( $value ) . '">';
+// echo '<input type="url" name="dc_events_manager_options[event_endpoint]" class="regular-text event_endpoint_field" placeholder="' . esc_attr__( '', 'dc-events-manager' ) . '" value="' . esc_attr( $value ) . '">';
 
 // }
 
