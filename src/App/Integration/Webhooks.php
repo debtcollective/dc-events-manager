@@ -46,9 +46,9 @@ class Webhooks extends Base {
 	public function __construct( $version, $plugin_name ) {
 		parent::__construct( $version, $plugin_name );
 		$options                 = Options::getOptions();
-		$this->event_endpoint    = $options['event_endpoint'];
-		$this->register_endpoint = $options['register_endpoint'];
-		$this->api_key           = $options['api_key'];
+		$this->event_endpoint    = array_key_exists( 'event_endpoint', $options ) ? $options['event_endpoint'] : null;
+		$this->register_endpoint = array_key_exists( 'register_endpoint', $options ) ? $options['register_endpoint'] : null;
+		$this->api_key           = array_key_exists( 'api_key', $options ) ? $options['api_key'] : null;
 		$this->init();
 	}
 
