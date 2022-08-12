@@ -189,6 +189,27 @@ class Webhooks extends Base {
 			$response = $this->call( $this->event_endpoint, $EM_Event );
 			// error_log( get_class() . ': ' . json_encode( $response ) );
 	/**
+	 * Act on Udpate
+	 *
+	 * @param integer  $post_ID
+	 * @param \WP_Post $post_after
+	 * @param \WP_Post $post_before
+	 * @return void
+	 */
+	public function update_event_data( int $post_id, \WP_Post $post_after, \WP_Post $post_before ) {
+		if ( \wp_is_post_revision( $post_id ) ) {
+			return;
+		}
+
+		if ( 'event' === \get_post_type( $post_id ) && $this->is_changed( $post_id, $post_after, $post_before ) ) {
+			if ( $EM_Event = $this->parse_event_data( $post_id ) ) {
+				$response = $this->call( $this->event_endpoint, $EM_Event );
+				error_log( __METHOD__ . ': ' . json_encode( $response ) );
+			}
+		}
+	}
+
+	/**
 	 * Parse Data
 	 *
 	 * @param integer $post_id
