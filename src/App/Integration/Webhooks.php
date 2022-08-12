@@ -114,6 +114,14 @@ class Webhooks extends Base {
 		'recurrence_id',
 		'event_private',
 	);
+
+	/**
+	 * RSVP fields
+	 *
+	 * @var array
+	 */
+	protected $rsvp_fields = array();
+
 	/**
 	 * Constructor.
 	 *
@@ -286,5 +294,9 @@ class Webhooks extends Base {
 	 * @return void
 	 */
 	public function send_registrant_data( $post_id, $post, $update ) {}
+
+	public function get_registrant_data( $post_id, $post, $update ) {}
+
+	public function parse_registrant_data( $post_id, $post, $update ) {}
 
 }
