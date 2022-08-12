@@ -171,23 +171,24 @@ class Webhooks extends Base {
 	}
 
 	/**
-	 * Save Event Action
+	 * Act on Save
 	 *
-	 * @param int  $post_id
-	 * @param obj  $post
-	 * @param bool $update
+	 * @param integer  $post_id
+	 * @param \WP_Post $post
+	 * @param boolean  $update
 	 * @return void
 	 */
-	public function send_event_data( $post_id, $post, $update ) {
-		if( ! property_exists( $this->event_endpoint ) || empty( $this->event_endpoint ) ) {
+	public function save_event_data( int $post_id, \WP_Post $post, bool $update ) {
+		if ( \wp_is_post_revision( $post_id ) ) {
 			return;
 		}
 
-		$EM_Event = \em_get_event( $post );
-
-		if ( $EM_Event && ! is_wp_error( $EM_Event ) ) {
+		if ( $EM_Event = $this->parse_event_data( $post_id ) ) {
 			$response = $this->call( $this->event_endpoint, $EM_Event );
-			// error_log( get_class() . ': ' . json_encode( $response ) );
+			error_log( __METHOD__ . ': ' . json_encode( $response ) );
+		}
+	}
+
 	/**
 	 * Act on Udpate
 	 *
