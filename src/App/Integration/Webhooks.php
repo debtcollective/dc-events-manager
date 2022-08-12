@@ -92,6 +92,28 @@ class Webhooks extends Base {
 		'owner_name',
 		'owner_email',
 	);
+
+	/**
+	 * Update fields
+	 *
+	 * @var array
+	 */
+	protected $update_fields = array(
+		'event_name',
+		'start_time',
+		'end_time',
+		'start_date',
+		'end_date',
+		'event_timezone',
+		'post_content',
+		'post_status',
+		'location_id',
+		'event_location_type',
+		'location',
+		'event_location',
+		'recurrence_id',
+		'event_private',
+	);
 	/**
 	 * Constructor.
 	 *
@@ -194,6 +216,24 @@ class Webhooks extends Base {
 
 		return $event_obj;
 	}
+
+	/**
+	 * Check if event data has changed
+	 *
+	 * @param integer  $post_id
+	 * @param \WP_Post $post_after
+	 * @param \WP_Post $post_before
+	 * @return boolean
+	 */
+	public function is_changed( int $post_id, \WP_Post $post_after, \WP_Post $post_before ) {
+		foreach ( $this->update_fields as $field ) {
+			if ( $post_after->{$field} === $post_before->{$field} ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * Get the event data
 	 *
