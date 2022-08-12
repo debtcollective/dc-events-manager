@@ -64,7 +64,10 @@ class Webhooks extends Base {
 		 *
 		 * @see Bootstrap::__construct
 		 */
-		\add_action( 'save_post_event', array( $this, 'send_event_data' ), 10, 3 );
+		if ( isset( $this->event_endpoint ) || ! empty( $this->event_endpoint ) ) {
+			\add_action( 'save_post_event', array( $this, 'save_event_data' ), 10, 3 );
+			\add_action( 'post_updated', array( $this, 'update_event_data' ), 10, 3 );
+		}
 	}
 
 	/**
