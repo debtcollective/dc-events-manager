@@ -66,6 +66,32 @@ class Webhooks extends Base {
 		'event_owner_email',
 		'event_private',
 	);
+
+	/**
+	 * Location fiels
+	 *
+	 * @var array
+	 */
+	protected $location_fields = array(
+		'location_id',
+		'post_id',
+		'location_slug',
+		'location_name',
+		'location_address',
+		'location_town',
+		'location_state',
+		'location_postcode',
+		'location_region',
+		'location_country',
+		'location_latitude',
+		'location_longitude',
+		'post_content',
+		'location_language',
+		'location_translation',
+		'owner_anonymous',
+		'owner_name',
+		'owner_email',
+	);
 	/**
 	 * Constructor.
 	 *
