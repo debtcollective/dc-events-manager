@@ -167,6 +167,34 @@ class Webhooks extends Base {
 			$response = $this->call( $this->event_endpoint, $EM_Event );
 			// error_log( get_class() . ': ' . json_encode( $response ) );
 	/**
+	 * Parse Data
+	 *
+	 * @param integer $post_id
+	 * @return obj $event_obj
+	 */
+	public function parse_event_data( int $post_id ) {
+		$event_obj = new \stdClass();
+
+		if ( $EM_Event = $this->get_event_data( $post_id ) ) {
+			foreach ( $this->save_fields as $key ) {
+				$event_obj->{$key} = $EM_Event->{$key};
+			}
+			$event_obj->event_type   = $EM_Event->event_location_type ? $EM_Event->event_location_type : 'physical';
+			$event_obj->is_recurring = $EM_Event->recurrence_id ? true : false;
+
+			$event_obj->location = new \stdClass();
+			if ( $EM_Event->location_id && property_exists( $EM_Event, 'location' ) ) {
+				foreach ( $this->location_fields as $key ) {
+					$event_obj->location->{$key} = isset( $EM_Event->location->{$key} ) ? $EM_Event->location->{$key} : null;
+				}
+			} elseif ( $EM_Event->event_location_type ) {
+				$event_obj->location = $EM_Event->event_location->data;
+			}
+		}
+
+		return $event_obj;
+	}
+	/**
 	 * Get the event data
 	 *
 	 * @param integer $post_id
