@@ -112,6 +112,24 @@ class Webhooks extends Base {
 		if ( $EM_Event && ! is_wp_error( $EM_Event ) ) {
 			$response = $this->call( $this->event_endpoint, $EM_Event );
 			// error_log( get_class() . ': ' . json_encode( $response ) );
+	/**
+	 * Get the event data
+	 *
+	 * @param integer $post_id
+	 * @return mixed obj $EM_Event || \Exception
+	 */
+	public function get_event_data( int $post_id ) {
+		try {
+			$EM_Event = \em_get_event( $post_id, 'post_id' );
+
+			if ( empty( $EM_Event ) || \is_wp_error( $EM_Event ) ) {
+				throw new \Exception( $EM_Event->get_error_message() );
+			}
+
+			return $EM_Event;
+		} catch ( \Exception $exception ) {
+			error_log( $exception->getMessage() );
+			return false;
 		}
 	}
 
