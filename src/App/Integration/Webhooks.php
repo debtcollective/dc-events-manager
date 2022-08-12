@@ -39,6 +39,34 @@ class Webhooks extends Base {
 	protected $api_key;
 
 	/**
+	 * Event fields on Save
+	 *
+	 * @var array
+	 */
+	protected $save_fields = array(
+		'event_id',
+		'ID',
+		'event_slug',
+		'event_name',
+		'start_time',
+		'end_time',
+		'start_date',
+		'end_date',
+		'event_timezone',
+		'event_all_day',
+		'post_content',
+		'post_status',
+		'location_id',
+		'event_location_type',
+		// 'location',
+		// 'event_location',
+		'recurrence_id',
+		'event_language',
+		'event_owner_name',
+		'event_owner_email',
+		'event_private',
+	);
+	/**
 	 * Constructor.
 	 *
 	 * @since 1.0.0
