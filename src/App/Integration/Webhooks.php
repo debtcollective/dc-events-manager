@@ -18,14 +18,14 @@ use DCEventsManager\App\Admin\Options;
 class Webhooks extends Base {
 
 	/**
-	 * Endpoint
+	 * Endpoint for Events
 	 *
 	 * @var string
 	 */
 	protected $event_endpoint;
 
 	/**
-	 * Endpoint
+	 * Endpoint for RSVP
 	 *
 	 * @var string
 	 */
