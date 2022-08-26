@@ -264,7 +264,7 @@ class Options extends Base {
 		if ( $options = $this->get_form_select_options() ) :
 			?>
 			<select name="<?php echo self::OPTIONS_NAME; ?>[rsvp_form]" class="rsvp_form_field">
-				<option value="0"><?php echo \esc_html__( 'Select a form', 'dc-events-manager' ); ?></option>
+				<option value="0"><?php echo \esc_html__( '-- Select form --', 'dc-events-manager' ); ?></option>
 				<?
 				foreach( $options as $id => $title ) :
 
