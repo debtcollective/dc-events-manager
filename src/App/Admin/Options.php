@@ -160,17 +160,16 @@ class Options extends Base {
 			self::OPTIONS_NAME . '_section'
 		);
 		\add_settings_field(
-			'hide_canceled',
-			__( 'Hide Canceled Events', 'dc-events-manager' ),
-			array( $this, 'renderHideCanceledField' ),
+			'rsvp_form',
+			__( 'RSVP Form', 'dc-events-manager' ),
+			array( $this, 'renderSelectRSVPForm' ),
 			self::OPTIONS_NAME,
 			self::OPTIONS_NAME . '_section'
 		);
-
 		\add_settings_field(
-			'rsvp_form',
-			__( 'Select RSVP Form', 'dc-events-manager' ),
-			array( $this, 'renderSelectRSVPForm' ),
+			'hide_canceled',
+			__( 'Hide Canceled Events', 'dc-events-manager' ),
+			array( $this, 'renderHideCanceledField' ),
 			self::OPTIONS_NAME,
 			self::OPTIONS_NAME . '_section'
 		);
