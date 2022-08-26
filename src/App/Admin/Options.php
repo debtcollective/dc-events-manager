@@ -147,7 +147,7 @@ class Options extends Base {
 		);
 		\add_settings_field(
 			'register_endpoint',
-			\__( 'Register Endpoint', 'dc-events-manager' ),
+			\__( 'RSVP Endpoint', 'dc-events-manager' ),
 			array( $this, 'renderRegisterEndpointField' ),
 			self::OPTIONS_NAME,
 			self::OPTIONS_NAME . '_section'
