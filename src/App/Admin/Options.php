@@ -210,7 +210,7 @@ class Options extends Base {
 	public function renderEventEndpointField() {
 		$value = isset( $this->options['event_endpoint'] ) ? $this->options['event_endpoint'] : \esc_url( '' );
 
-		echo '<input type="url" name="' . self::OPTIONS_NAME . '[event_endpoint]" class="regular-text event_endpoint_field" placeholder="' . \esc_attr__( '', 'dc-events-manager' ) . '" value="' . \esc_attr( $value ) . '">';
+		echo '<input type="url" name="' . self::OPTIONS_NAME . '[event_endpoint]" class="large-text event_endpoint_field" placeholder="' . \esc_attr__( '', 'dc-events-manager' ) . '" value="' . \esc_attr( $value ) . '">';
 	}
 
 	/**
@@ -221,7 +221,7 @@ class Options extends Base {
 	public function renderRegisterEndpointField() {
 		$value = isset( $this->options['register_endpoint'] ) ? $this->options['register_endpoint'] : \esc_url( '' );
 
-		echo '<input type="url" name="' . self::OPTIONS_NAME . '[register_endpoint]" class="regular-text register_endpoint_field" placeholder="' . \esc_attr__( '', 'dc-events-manager' ) . '" value="' . \esc_attr( $value ) . '">';
+		echo '<input type="url" name="' . self::OPTIONS_NAME . '[register_endpoint]" class="large-text register_endpoint_field" placeholder="' . \esc_attr__( '', 'dc-events-manager' ) . '" value="' . \esc_attr( $value ) . '">';
 	}
 
 	/**
