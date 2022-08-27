@@ -135,6 +135,17 @@ class ContactForm7 extends Base {
 		}
 		return (object) $data;
 	}
+
+	/**
+	 * Has RSVP
+	 *
+	 * @param integer $id
+	 * @return boolean
+	 */
+	public function has_rsvp( int $post_id ) {
+		return \get_post_meta( $post_id, 'enable_rsvp', true );
+	}
+
 	/**
 	 * Register fields
 	 *
