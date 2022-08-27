@@ -118,7 +118,6 @@ class ContactForm7 extends Base {
 	 * @param bool $update
 	 * @return void
 	 */
-	public function send_registrant_data( $post_id, $post, $update ) {}
 	public function send_data( $contact_form, &$abort, $submission ) {
 		if ( $this->rsvp_form == $contact_form->id() ) {
 			$data     = $this->parse_data( $submission );
@@ -127,7 +126,6 @@ class ContactForm7 extends Base {
 		}
 	}
 
-	public function get_registrant_data( $post_id, $post, $update ) {}
 	/**
 	 * Parse the rsvp data
 	 *
