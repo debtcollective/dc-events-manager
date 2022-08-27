@@ -93,27 +93,14 @@ class ContactForm7 extends Base {
 	}
 
 	/**
-	 * Send
+	 * Turn off built-in registration
 	 *
-	 * @param string $endpoint
-	 * @param object $data
+	 * @link https://developer.wordpress.org/reference/functions/update_option/
+	 *
 	 * @return void
 	 */
-	public function call( string $endpoint, object $data ) {
-		$options = array(
-			'body'        => json_encode( $data ),
-			'headers'     => array(
-				'Cache-Control' => 'no-cache',
-			),
-			'timeout'     => 60,
-			'redirection' => 5,
-			'blocking'    => true,
-			'httpversion' => '1.0',
-			'sslverify'   => false,
-			'data_format' => 'body',
-		);
-		$request = \wp_remote_post( $endpoint, $options );
-		return $request;
+	public function set_options() {
+		\update_option( 'dbem_rsvp_enabled', 0 );
 	}
 
 	/**
