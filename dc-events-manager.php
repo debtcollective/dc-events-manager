@@ -27,7 +27,6 @@ namespace DCEventsManager;
 
 require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
-use DCEventsManager\App\Admin\Options;
 use DCEventsManager\Activator as Activator;
 use DCEventsManager\Deactivator as Deactivator;
 
