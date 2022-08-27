@@ -189,5 +189,30 @@ class ContactForm7 extends Base {
 		);
 	}
 
-	public function parse_registrant_data( $post_id, $post, $update ) {}
+	/**
+	 * Set Attributes
+	 *
+	 * @link https://contactform7.com/getting-default-values-from-shortcode-attributes/
+	 *
+	 * @param array $out
+	 * @param array $pairs
+	 * @param array $atts
+	 * @return array $out
+	 */
+	public function add_atts( $out, $pairs, $atts ) {
+		$attributes = array(
+			'post_id',
+			'event_id',
+			'zoom_id',
+		);
+
+		foreach ( $attributes as $attr ) {
+			if ( isset( $atts[ $attr ] ) ) {
+				$out[ $attr ] = $atts[ $attr ];
+			}
+		}
+
+		return $out;
+	}
+
 }
