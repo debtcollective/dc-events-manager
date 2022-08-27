@@ -18,18 +18,11 @@ use DCEventsManager\App\Admin\Options;
 class ContactForm7 extends Base {
 
 	/**
-	 * Endpoint for Events
-	 *
-	 * @var string
-	 */
-	protected $event_endpoint;
-
-	/**
 	 * Endpoint for RSVP
 	 *
 	 * @var string
 	 */
-	protected $register_endpoint;
+	protected $endpoint;
 
 	/**
 	 * API Key
@@ -66,11 +59,10 @@ class ContactForm7 extends Base {
 	 */
 	public function __construct( $version, $plugin_name ) {
 		parent::__construct( $version, $plugin_name );
-		$options                 = \get_option( Options::OPTIONS_NAME, array() );
-		$this->event_endpoint    = array_key_exists( 'event_endpoint', $options ) ? $options['event_endpoint'] : null;
-		$this->register_endpoint = array_key_exists( 'register_endpoint', $options ) ? $options['register_endpoint'] : null;
-		$this->api_key           = array_key_exists( 'api_key', $options ) ? $options['api_key'] : null;
-		$this->rsvp_form         = array_key_exists( 'rsvp_form', $options ) ? $options['rsvp_form'] : null;
+		$options         = \get_option( Options::OPTIONS_NAME, array() );
+		$this->endpoint  = array_key_exists( 'register_endpoint', $options ) ? $options['register_endpoint'] : null;
+		$this->api_key   = array_key_exists( 'api_key', $options ) ? $options['api_key'] : null;
+		$this->rsvp_form = array_key_exists( 'rsvp_form', $options ) ? $options['rsvp_form'] : null;
 
 		$this->init();
 	}
