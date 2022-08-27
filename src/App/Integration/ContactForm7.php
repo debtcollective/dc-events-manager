@@ -122,6 +122,20 @@ class ContactForm7 extends Base {
 
 	public function get_registrant_data( $post_id, $post, $update ) {}
 	/**
+	 * Parse the rsvp data
+	 *
+	 * @param object $submission
+	 * @return array $data
+	 */
+	public function parse_data( $submission ) {
+		$submission_data = $submission->get_posted_data();
+		$data            = array();
+		foreach ( $this->fields as $field ) {
+			$data[ $field ] = isset( $submission_data[ $field ] ) ? \esc_attr( $submission_data[ $field ] ) : '';
+		}
+		return (object) $data;
+	}
+	/**
 	 * Register fields
 	 *
 	 * @link https://www.advancedcustomfields.com/resources/register-fields-via-php/
