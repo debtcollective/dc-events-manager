@@ -127,6 +127,67 @@ class ContactForm7 extends Base {
 	public function send_registrant_data( $post_id, $post, $update ) {}
 
 	public function get_registrant_data( $post_id, $post, $update ) {}
+	/**
+	 * Register fields
+	 *
+	 * @link https://www.advancedcustomfields.com/resources/register-fields-via-php/
+	 *
+	 * @return void
+	 */
+	public function register_fields() {
+		\acf_add_local_field_group(
+			array(
+				'key'                   => 'group_event_details',
+				'title'                 => \__( 'Event Details', 'site-functionality' ),
+				'fields'                => array(
+					array(
+						'key'               => 'field_enable_rsvp',
+						'label'             => \__( 'Enable RSVP', 'site-functionality' ),
+						'name'              => 'enable_rsvp',
+						'type'              => 'true_false',
+						'instructions'      => '',
+						'required'          => 0,
+						'conditional_logic' => 0,
+						'wrapper'           => array(
+							'width' => '',
+							'class' => '',
+							'id'    => '',
+						),
+						'message'           => \__( 'Display RSVP form on single event page', 'site-functionality' ),
+						'default_value'     => 1,
+						'ui'                => 1,
+						'ui_on_text'        => '',
+						'ui_off_text'       => '',
+					),
+				),
+				'location'              => array(
+					array(
+						array(
+							'param'    => 'post_type',
+							'operator' => '==',
+							'value'    => 'event',
+						),
+					),
+					array(
+						array(
+							'param'    => 'post_type',
+							'operator' => '==',
+							'value'    => 'event-recurring',
+						),
+					),
+				),
+				'menu_order'            => 0,
+				'position'              => 'normal',
+				'style'                 => 'seamless',
+				'label_placement'       => 'top',
+				'instruction_placement' => 'label',
+				'hide_on_screen'        => '',
+				'active'                => true,
+				'description'           => '',
+				'show_in_rest'          => 0,
+			)
+		);
+	}
 
 	public function parse_registrant_data( $post_id, $post, $update ) {}
 }
