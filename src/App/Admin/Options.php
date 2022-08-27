@@ -126,12 +126,12 @@ class Options extends Base {
 	 */
 	public function init_settings() {
 
-		register_setting(
+		\register_setting(
 			self::OPTIONS_NAME,
 			self::OPTIONS_NAME
 		);
 
-		add_settings_section(
+		\add_settings_section(
 			self::OPTIONS_NAME . '_section',
 			'',
 			false,
@@ -147,7 +147,7 @@ class Options extends Base {
 		);
 		\add_settings_field(
 			'register_endpoint',
-			\__( 'Register Endpoint', 'dc-events-manager' ),
+			\__( 'RSVP Endpoint', 'dc-events-manager' ),
 			array( $this, 'renderRegisterEndpointField' ),
 			self::OPTIONS_NAME,
 			self::OPTIONS_NAME . '_section'
@@ -159,7 +159,14 @@ class Options extends Base {
 			self::OPTIONS_NAME,
 			self::OPTIONS_NAME . '_section'
 		);
-		add_settings_field(
+		\add_settings_field(
+			'rsvp_form',
+			__( 'RSVP Form', 'dc-events-manager' ),
+			array( $this, 'renderSelectRSVPForm' ),
+			self::OPTIONS_NAME,
+			self::OPTIONS_NAME . '_section'
+		);
+		\add_settings_field(
 			'hide_canceled',
 			__( 'Hide Canceled Events', 'dc-events-manager' ),
 			array( $this, 'renderHideCanceledField' ),
@@ -203,7 +210,7 @@ class Options extends Base {
 	public function renderEventEndpointField() {
 		$value = isset( $this->options['event_endpoint'] ) ? $this->options['event_endpoint'] : \esc_url( '' );
 
-		echo '<input type="url" name="dc_events_manager_options[event_endpoint]" class="regular-text event_endpoint_field" placeholder="' . \esc_attr__( '', 'dc-events-manager' ) . '" value="' . \esc_attr( $value ) . '">';
+		echo '<input type="url" name="' . self::OPTIONS_NAME . '[event_endpoint]" class="large-text event_endpoint_field" placeholder="' . \esc_attr__( '', 'dc-events-manager' ) . '" value="' . \esc_attr( $value ) . '">';
 	}
 
 	/**
@@ -214,7 +221,7 @@ class Options extends Base {
 	public function renderRegisterEndpointField() {
 		$value = isset( $this->options['register_endpoint'] ) ? $this->options['register_endpoint'] : \esc_url( '' );
 
-		echo '<input type="url" name="dc_events_manager_options[register_endpoint]" class="regular-text register_endpoint_field" placeholder="' . \esc_attr__( '', 'dc-events-manager' ) . '" value="' . \esc_attr( $value ) . '">';
+		echo '<input type="url" name="' . self::OPTIONS_NAME . '[register_endpoint]" class="large-text register_endpoint_field" placeholder="' . \esc_attr__( '', 'dc-events-manager' ) . '" value="' . \esc_attr( $value ) . '">';
 	}
 
 	/**
@@ -225,7 +232,7 @@ class Options extends Base {
 	public function renderApiKeyField() {
 		$value = isset( $this->options['api_key'] ) ? $this->options['api_key'] : '';
 
-		echo '<input type="text" name="dc_events_manager_options[api_key]" class="regular-text api_key_field" placeholder="' . \esc_attr__( '', 'dc-events-manager' ) . '" value="' . \esc_attr( $value ) . '">';
+		echo '<input type="text" name="' . self::OPTIONS_NAME . '[api_key]" class="regular-text api_key_field" placeholder="' . \esc_attr__( '', 'dc-events-manager' ) . '" value="' . \esc_attr( $value ) . '">';
 	}
 
 	/**
@@ -237,13 +244,78 @@ class Options extends Base {
 		$value = isset( $this->options['hide_canceled'] ) ? $this->options['hide_canceled'] : 'false';
 
 		printf(
-			'<input type="checkbox" name="dc_events_manager_options[hide_canceled]" class="hide_canceled_field" value="checked" %s> %s',
+			'<input type="checkbox" name="%s[hide_canceled]" class="hide_canceled_field" value="checked" %s> %s',
+			self::OPTIONS_NAME,
 			\checked( $value, 'checked', false ),
 			\esc_attr__( 'Hide', 'dc-events-manager' )
 		);
 		echo '<p class="description">' . \__( 'Hide canceled events on site.', 'dc-events-manager' ) . '</p>';
 	}
 
+	/**
+	 * Render Field
+	 *
+	 * @return void
+	 */
+	public function renderSelectRSVPForm() {
+		$value = isset( $this->options['rsvp_form'] ) ? $this->options['rsvp_form'] : '0';
+
+		if ( $options = $this->get_form_select_options() ) :
+			?>
+			<select name="<?php echo self::OPTIONS_NAME; ?>[rsvp_form]" class="rsvp_form_field">
+				<option value="0"><?php echo \esc_html__( '-- Select form --', 'dc-events-manager' ); ?></option>
+				<?
+				foreach( $options as $id => $title ) :
+
+					var_dump( $value === $id );
+
+					printf( '<option value="%s" %s>%s</option>', $id, \selected( $value, $id, false ), $title );
+
+				endforeach;
+				?>
+			</select>
+			<?php
+		endif;
+
+	}
+
+	/**
+	 * Get all the forms
+	 *
+	 * @link https://developer.wordpress.org/reference/classes/wp_query
+	 *
+	 * @return string
+	 */
+	public function get_form_select_options() {
+		$form_elements = array();
+		$forms = $this->get_forms();
+		if( ! empty( $forms ) && ! \is_wp_error( $forms ) ) {
+			foreach( $forms as $form ) {
+				$form_elements[$form->ID] = $form->post_title;
+			}
+		}
+		return $form_elements;
+	}
+
+	/**
+	 * Get all the forms
+	 *
+	 * @link https://developer.wordpress.org/reference/classes/wp_query
+	 *
+	 * @return array
+	 */
+	public function get_forms() : array {
+		if ( ! class_exists( '\WPCF7_ContactForm' ) ) {
+			return array();
+		}
+		$args = array(
+			'post_type'      => array( \WPCF7_ContactForm::post_type ),
+			'posts_per_page' => -1,
+			'order'          => 'ASC',
+			'orderby'        => 'title',
+		);
+		return \get_posts( $args );
+	}
 
 	/**
 	 * Get Options
@@ -265,206 +337,3 @@ class Options extends Base {
 		$this->options = self::getOptions();
 	}
 }
-
-
-// class Options extends Base {
-// **
-// * Cap required to edit settings
-// *
-// * @var string
-// */
-// const OPTIONS_CAP = 'manage_options';
-
-// **
-// * Name of options field
-// *
-// * @var string
-// */
-// const OPTIONS_NAME = 'dc_events_manager_options';
-
-// **
-// * ID of Options page
-// *
-// * @var string
-// */
-// const OPTIONS_PAGE_NAME = 'options-dc-events-manager';
-
-// **
-// * Plugin Options
-// *
-// * @var array
-// */
-// protected $options;
-
-// **
-// * Constructor.
-// *
-// * @since 1.0.0
-// */
-// public function __construct( $version, $plugin_name, $basename ) {
-// parent::__construct( $version, $plugin_name, $basename );
-// $this->init();
-// }
-
-// **
-// * Initialize the class.
-// *
-// * @since 1.0.0
-// */
-// public function init() {
-// **
-// * This general class is always being instantiated as requested in the Bootstrap class
-// *
-// * @see Bootstrap::__construct
-// */
-// $this->setOptions();
-// \add_action( 'admin_menu', array( $this, 'addSubmenuTab' ), 20 );
-// \add_action( 'admin_init', array( $this, 'initSettings' ) );
-// }
-
-// /**
-// * Add Admin Menu
-// *
-// * @return void
-// */
-// public function addSubmenuTab() {
-
-// \add_submenu_page(
-// 'edit.php?post_type=' . \EM_POST_TYPE_EVENT,
-// \esc_html__( 'Action Network Settings', 'dc-events-manager' ),
-// \esc_html__( 'Action Network Settings', 'dc-events-manager' ),
-// self::OPTIONS_CAP,
-// self::OPTIONS_PAGE_NAME,
-// array( $this, 'renderPage' ),
-// 10
-// );
-// }
-
-// **
-// * Register Settings & Fields
-// *
-// * @return void
-// */
-// public function initSettings() {
-
-// \register_setting(
-// self::OPTIONS_NAME,
-// self::OPTIONS_NAME,
-// );
-
-// \add_settings_section(
-// self::OPTIONS_NAME . '_section',
-// '',
-// false,
-// self::OPTIONS_NAME
-// );
-
-// \add_settings_field(
-// 'event_endpoint',
-// \__( 'Action Network Base URL', 'dc-events-manager' ),
-// array( $this, 'renderEventEndpointField' ),
-// self::OPTIONS_NAME,
-// self::OPTIONS_NAME
-// );
-// \add_settings_field(
-// 'api_key',
-// \__( 'Action Network API Key', 'dc-events-manager' ),
-// array( $this, 'renderApiKeyField' ),
-// self::OPTIONS_NAME,
-// self::OPTIONS_NAME
-// );
-// add_settings_field(
-// 'hide_canceled',
-// __( 'Hide Canceled Events', 'dc-events-manager' ),
-// array( $this, 'renderHideCanceledField' ),
-// self::OPTIONS_NAME,
-// self::OPTIONS_NAME
-// );
-// }
-
-// **
-// * Render Settings Page
-// *
-// * @return void
-// */
-// public function renderPage() {
-// if ( ! current_user_can( self::OPTIONS_CAP ) ) {
-// \wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'dc-events-manager' ) );
-// }
-
-// echo '<div class="wrap">' . "\n";
-// echo '  <h1>' . \get_admin_page_title() . '</h1>' . "\n";
-
-// echo '  <form action="options.php" method="post">' . "\n";
-
-// \settings_fields( self::OPTIONS_NAME );
-// \do_settings_sections( self::OPTIONS_NAME );
-// \submit_button();
-
-// echo '  </form>' . "\n";
-
-// echo '</div>' . "\n";
-
-// }
-
-// **
-// * Render Field
-// *
-// * @return void
-// */
-// public function renderEventEndpointField() {
-
-// $value = isset( $this->options['event_endpoint'] ) ? $this->options['event_endpoint'] : esc_url( 'https://actionnetwork.org/api/v2/' );
-
-// echo '<input type="url" name="dc_events_manager_options[event_endpoint]" class="regular-text event_endpoint_field" placeholder="' . esc_attr__( '', 'dc-events-manager' ) . '" value="' . esc_attr( $value ) . '">';
-
-// }
-
-// **
-// * Render Field
-// *
-// * @return void
-// */
-// public function renderApiKeyField() {
-// $value = isset( $this->options['api_key'] ) ? $this->options['api_key'] : '';
-
-// echo '<input type="text" name="dc_events_manager_options[api_key]" class="regular-text api_key_field" placeholder="' . esc_attr__( '', 'dc-events-manager' ) . '" value="' . esc_attr( $value ) . '">';
-
-// }
-
-// **
-// * Render Field
-// *
-// * @return void
-// */
-// public function renderHideCanceledField() {
-// $value = isset( $this->options['hide_canceled'] ) ? $this->options['hide_canceled'] : 'false';
-
-// printf(
-// '<input type="checkbox" name="dc_events_manager_options[hide_canceled]" class="hide_canceled_field" value="checked" %s> %s',
-// checked( $value, 'checked', false ),
-// esc_attr__( 'Hide', 'dc-events-manager' )
-// );
-// echo '<p class="description">' . __( 'Hide canceled events on site.', 'dc-events-manager' ) . '</p>';
-// }
-
-// **
-// * Get Options
-// *
-// * @see https://developer.wordpress.org/reference/functions/get_option/
-// *
-// * @return mixed array || false
-// */
-// static function getOptions() {
-// return \get_option( self::OPTIONS_NAME );
-// }
-
-// **
-// * Set options
-// *
-// * @return void
-// */
-// function setOptions() {
-// $this->options = self::getOptions();
-// }
-// }
