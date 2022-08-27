@@ -7,6 +7,7 @@
 namespace DCEventsManager\App\Integration;
 
 use DCEventsManager\Common\Abstracts\Base;
+use DCEventsManager\App\Integration\Webhooks;
 use DCEventsManager\App\Admin\Options;
 
 /**
