@@ -45,7 +45,8 @@ class ContactForm7 extends Base {
 	 */
 	protected $fields = array(
 		'event_id',
-		'ID',
+		'post_id',
+		'zoom_id',
 		'first_name',
 		'last_name',
 		'email',
