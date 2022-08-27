@@ -86,9 +86,16 @@ class ContactForm7 extends Base {
 		 *
 		 * @see Bootstrap::__construct
 		 */
-		if ( isset( $this->rsvp_endpoint ) && $this->rsvp_form && ! empty( $this->rsvp_endpoint ) && ! empty( $this->rsvp_form ) ) {
-			// \add_action( 'save_post_event', array( $this, 'save_event_data' ), 10, 3 );
-			// \add_action( 'post_updated', array( $this, 'update_event_data' ), 10, 3 );
+
+		if ( isset( $this->endpoint ) && $this->rsvp_form && ! empty( $this->endpoint ) && ! empty( $this->rsvp_form ) ) {
+
+			\add_action( 'admin_init', array( $this, 'set_options' ) );
+			\add_action( 'acf/init', array( $this, 'register_fields' ) );
+
+			\add_action( 'wpcf7_before_send_mail', array( $this, 'send_data' ), 10, 3 );
+			\add_filter( 'shortcode_atts_wpcf7', array( $this, 'add_atts' ), 10, 3 );
+
+			// \add_filter( 'wpcf7_contact_form_properties', array( $this, 'add_form_properties' ), 10, 2 );
 		}
 	}
 
