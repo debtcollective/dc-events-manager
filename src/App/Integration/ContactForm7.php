@@ -46,6 +46,7 @@ class ContactForm7 extends Base {
 	 */
 	protected $fields = array(
 		'event_id',
+		'event_name',
 		'post_id',
 		'zoom_id',
 		'first_name',
@@ -220,6 +221,7 @@ class ContactForm7 extends Base {
 	public function add_atts( $out, $pairs, $atts ) {
 		$attributes = array(
 			'post_id',
+			'event_name',
 			'event_id',
 			'zoom_id',
 		);
