@@ -138,6 +138,23 @@ class EM_Events extends Base {
 			\add_action( 'save_post_event', array( $this, 'save_data' ), 10, 3 );
 			\add_action( 'post_updated', array( $this, 'update_data' ), 10, 3 );
 		}
+		// Run late - after add_action('save_post',array('EM_Event_Recurring_Post_Admin','save_post'),10000,1);
+		add_action( 'save_post', array( $this, 'resave_recurring' ), 20000, 3 );
+	}
+
+	/**
+	 * Resave recurring event to fix date/time sent to Zoom
+	 *
+	 * @param integer $post_ID
+	 * @param \WP_Post $post
+	 * @param boolean $update
+	 * @return void
+	 */
+	public function resave_recurring( int $post_ID, \WP_Post $post, bool $update ) {
+		if ( $update || \wp_is_post_revision( $post_id ) || 'event-recurring' !== $post->post_type ) {
+			return;
+		}
+		\update_post_meta( $post_id, 'resaved_recurring', date( 'c' ) );
 	}
 
 	/**
