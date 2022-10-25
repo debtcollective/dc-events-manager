@@ -150,7 +150,7 @@ class EM_Events extends Base {
 	 * @param boolean $update
 	 * @return void
 	 */
-	public function resave_recurring( int $post_ID, \WP_Post $post, bool $update ) {
+	public function resave_recurring( int $post_id, \WP_Post $post, bool $update ) {
 		if ( $update || \wp_is_post_revision( $post_id ) || 'event-recurring' !== $post->post_type ) {
 			return;
 		}
