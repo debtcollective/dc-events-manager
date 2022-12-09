@@ -39,6 +39,8 @@ class ComposerStaticInitb6453e532a437fcc54b5e8899a4ba443
         'DCEventsManager\\App\\General\\Taxonomies\\Taxonomies' => __DIR__ . '/../..' . '/src/App/General/Taxonomies/Taxonomies.php',
         'DCEventsManager\\App\\Integration\\ActionNetwork' => __DIR__ . '/../..' . '/src/App/Integration/ActionNetwork.php',
         'DCEventsManager\\App\\Integration\\Conditionals' => __DIR__ . '/../..' . '/src/App/Integration/Conditionals.php',
+        'DCEventsManager\\App\\Integration\\ContactForm7' => __DIR__ . '/../..' . '/src/App/Integration/ContactForm7.php',
+        'DCEventsManager\\App\\Integration\\EM_Events' => __DIR__ . '/../..' . '/src/App/Integration/EM_Events.php',
         'DCEventsManager\\App\\Integration\\Integration' => __DIR__ . '/../..' . '/src/App/Integration/Integration.php',
         'DCEventsManager\\App\\Integration\\Placeholders' => __DIR__ . '/../..' . '/src/App/Integration/Placeholders.php',
         'DCEventsManager\\App\\Integration\\RestFilters' => __DIR__ . '/../..' . '/src/App/Integration/RestFilters.php',

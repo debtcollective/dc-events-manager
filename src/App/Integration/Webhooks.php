@@ -7,6 +7,7 @@
 namespace DCEventsManager\App\Integration;
 
 use DCEventsManager\Common\Abstracts\Base;
+use DCEventsManager\App\Admin\Options;
 
 /**
  * Class Webhooks
@@ -23,7 +24,11 @@ class Webhooks extends Base {
 	 */
 	public function __construct( $version, $plugin_name ) {
 		parent::__construct( $version, $plugin_name );
+
 		$this->init();
+
+		$em_events = new EM_Events( $this->version, $this->plugin_name );
+		$wpcf7     = new ContactForm7( $this->version, $this->plugin_name );
 	}
 
 	/**
@@ -36,9 +41,31 @@ class Webhooks extends Base {
 		 * This general class is always being instantiated as requested in the Bootstrap class
 		 *
 		 * @see Bootstrap::__construct
-		 *
-		 * Add plugin code here
 		 */
+	}
+
+	/**
+	 * Send
+	 *
+	 * @param string $endpoint
+	 * @param object $data
+	 * @return void
+	 */
+	public function call( string $endpoint, object $data ) {
+		$options = array(
+			'body'        => json_encode( $data ),
+			'headers'     => array(
+				'Cache-Control' => 'no-cache',
+			),
+			'timeout'     => 60,
+			'redirection' => 5,
+			'blocking'    => true,
+			'httpversion' => '1.0',
+			'sslverify'   => false,
+			'data_format' => 'body',
+		);
+		$request = \wp_remote_post( $endpoint, $options );
+		return $request;
 	}
 
 }

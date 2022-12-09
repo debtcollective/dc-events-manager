@@ -24,6 +24,8 @@ return array(
     'DCEventsManager\\App\\General\\Taxonomies\\Taxonomies' => $baseDir . '/src/App/General/Taxonomies/Taxonomies.php',
     'DCEventsManager\\App\\Integration\\ActionNetwork' => $baseDir . '/src/App/Integration/ActionNetwork.php',
     'DCEventsManager\\App\\Integration\\Conditionals' => $baseDir . '/src/App/Integration/Conditionals.php',
+    'DCEventsManager\\App\\Integration\\ContactForm7' => $baseDir . '/src/App/Integration/ContactForm7.php',
+    'DCEventsManager\\App\\Integration\\EM_Events' => $baseDir . '/src/App/Integration/EM_Events.php',
     'DCEventsManager\\App\\Integration\\Integration' => $baseDir . '/src/App/Integration/Integration.php',
     'DCEventsManager\\App\\Integration\\Placeholders' => $baseDir . '/src/App/Integration/Placeholders.php',
     'DCEventsManager\\App\\Integration\\RestFilters' => $baseDir . '/src/App/Integration/RestFilters.php',
