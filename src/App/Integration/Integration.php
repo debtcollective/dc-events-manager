@@ -8,6 +8,9 @@ namespace DCEventsManager\App\Integration;
 
 use DCEventsManager\Common\Abstracts\Base;
 use DCEventsManager\App\Integration\RestFilters;
+use DCEventsManager\App\Integration\Conditionals;
+use DCEventsManager\App\Integration\Placeholders;
+use DCEventsManager\App\Integration\Webhooks;
 
 /**
  * Class Integration
@@ -39,6 +42,9 @@ class Integration extends Base {
 		 * @see Bootstrap::__construct
 		 *
 		 */
+		$conditionals = new Conditionals( $this->version, $this->plugin_name );
+		$placeholders = new Placeholders( $this->version, $this->plugin_name );
+		$webhooks = new Webhooks( $this->version, $this->plugin_name );
 
 	}
 

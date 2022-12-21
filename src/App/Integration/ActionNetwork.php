@@ -4,19 +4,17 @@
  *
  * @package   DC_Events_Manager
  */
-namespace DCEventsManager\App\General;
+namespace DCEventsManager\App\Integration;
 
 use DCEventsManager\Common\Abstracts\Base;
-use DCEventsManager\App\General\PostTypes\PostTypes;
-use DCEventsManager\App\General\Taxonomies\EventCrmTag;
 
 /**
- * Class Taxonomies
+ * Class ActionNetwork
  *
- * @package DCEventsManager\App\General
+ * @package DCEventsManager\App\Integration
  * @since 1.0.0
  */
-class Settings extends Base {
+class ActionNetwork extends Base {
 
 	/**
 	 * Constructor.
@@ -39,11 +37,14 @@ class Settings extends Base {
 		 *
 		 * @see Bootstrap::__construct
 		 *
+		 * Add plugin code here
 		 */
-
-		if( ! defined( 'EM_GUTENBERG' ) ) {
-			define( 'EM_GUTENBERG', true );
-		}
 	}
+
+	public function call() {}
+
+	public function post_event() {}
+
+	public function post_rsvp() {}
 
 }
