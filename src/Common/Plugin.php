@@ -157,7 +157,7 @@ class Plugin {
 		$this->loader = new Loader();
 
 		$this->plugin_admin = new Admin( $this->version, $this->plugin_name, $this->basename );
-		new Blocks( $this->version, $this->plugin_name, $this->basename );
+		// new Blocks( $this->version, $this->plugin_name, $this->basename );
 		$this->plugin_public = new Frontend( $this->version, $this->plugin_name );
 		new General( $this->version, $this->plugin_name );
 		new Integration( $this->version, $this->plugin_name );
