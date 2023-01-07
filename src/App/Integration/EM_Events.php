@@ -144,6 +144,8 @@ class EM_Events extends Base {
 
 	/**
 	 * Resave recurring event to fix date/time sent to Zoom
+	 * 
+	 * @uses https://developer.wordpress.org/reference/functions/add_post_meta/
 	 *
 	 * @param integer $post_ID
 	 * @param \WP_Post $post
@@ -154,7 +156,7 @@ class EM_Events extends Base {
 		if ( $update || \wp_is_post_revision( $post_id ) || 'event-recurring' !== $post->post_type ) {
 			return;
 		}
-		\update_post_meta( $post_id, 'resaved_recurring', date( 'c' ) );
+		\add_post_meta( $post_id, 'resaved_recurring', date( 'c' ), true );
 	}
 
 	/**
