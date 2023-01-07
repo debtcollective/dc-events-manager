@@ -2,20 +2,6 @@ version: 2.1
 orbs:
   aws-cli: circleci/aws-cli@1.4.1
 jobs:
-  deploy_dev:
-    docker: # run the steps with Docker
-      - image: cimg/php:7.4.22
-    steps:
-      - checkout
-      - run:
-          name: Install Node
-          command: |
-            curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-            sudo apt-get install -y nodejs rsync grsync
-      - run:
-          name: Deploy over SSH
-          command: |
-            rsync -e 'ssh -p 12345 -o StrictHostKeyChecking=accept-new' -rtDvzhO . $SSH_USER@$SSH_HOST_DEV:$SSH_DEV_PATH
   deploy_stage:
     docker: # run the steps with Docker
       - image: cimg/php:7.4.22
@@ -29,7 +15,7 @@ jobs:
       - run:
           name: Deploy over SSH
           command: |
-            rsync -e 'ssh -p 12345 -o StrictHostKeyChecking=accept-new' -rtDvzhO --delete . $SSH_USER@$SSH_HOST_STAGE:$SSH_PATH
+            rsync -e 'ssh -p 12345 -o StrictHostKeyChecking=accept-new' -rtDvzhOp --chmod=D0775,F0664 -og --chown=33:tape --delete . $SSH_USER@$SSH_HOST_STAGE:$SSH_PATH
 
   deploy_prod:
     docker: # run the steps with Docker
@@ -44,16 +30,12 @@ jobs:
       - run:
           name: Deploy over SSH
           command: |
-            rsync -e 'ssh -p 12345 -o StrictHostKeyChecking=accept-new' -rtDvzhO --delete . $SSH_USER@$SSH_HOST_PROD:$SSH_PATH
+            rsync -e 'ssh -p 12345 -o StrictHostKeyChecking=accept-new' -rtDvzhOp --chmod=D0775,F0664 -og --chown=33:tape --delete . $SSH_USER@$SSH_HOST_PROD:$SSH_PATH
 
 workflows:
   version: 2
   pipeline:
     jobs:
-      - deploy_dev:
-          filters:
-            branches:
-              only: events
       - deploy_stage:
           filters:
             branches:

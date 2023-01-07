@@ -140,6 +140,8 @@ class EM_Events extends Base {
 		}
 		// Run late - after add_action('save_post',array('EM_Event_Recurring_Post_Admin','save_post'),10000,1);
 		add_action( 'save_post', array( $this, 'resave_recurring' ), 20000, 3 );
+
+		add_filter( 'em_event_location_zoom_meeting_admin_fields_settings', array( $this, 'set_zoom_defaults' ) );
 	}
 
 	/**
@@ -153,7 +155,7 @@ class EM_Events extends Base {
 	 * @return void
 	 */
 	public function resave_recurring( int $post_id, \WP_Post $post, bool $update ) {
-		if ( $update || \wp_is_post_revision( $post_id ) || 'event-recurring' !== $post->post_type ) {
+		if ( 'event-recurring' != $post->post_type ) {
 			return;
 		}
 		\add_post_meta( $post_id, 'resaved_recurring', date( 'c' ), true );
@@ -264,5 +266,16 @@ class EM_Events extends Base {
 			error_log( $exception->getMessage() );
 			return false;
 		}
+	}
+
+	/**
+	 * Modify default zoom event settings
+	 *
+	 * @param array $return
+	 * @return array $return
+	 */
+	public function set_zoom_defaults( array $return ) {
+		$return['fields']['approval_type']['value'] = 0;
+		return $return;
 	}
 }
