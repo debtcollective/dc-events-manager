@@ -173,7 +173,7 @@ class ContactForm7 extends Base {
 							'id'    => '',
 						),
 						'message'           => \__( 'Display RSVP form on single event page', 'site-functionality' ),
-						'default_value'     => 1,
+						'default_value'     => 0,
 						'ui'                => 1,
 						'ui_on_text'        => '',
 						'ui_off_text'       => '',
