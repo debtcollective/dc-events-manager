@@ -135,7 +135,7 @@ class EM_Events extends Base {
 		 * @see Bootstrap::__construct
 		 */
 		if ( isset( $this->endpoint ) || ! empty( $this->endpoint ) ) {
-			\add_action( 'save_post_event', array( $this, 'save_data' ), 10, 3 );
+			\add_action( 'save_post', array( $this, 'save_data' ), 10, 3 );
 			\add_action( 'post_updated', array( $this, 'update_data' ), 10, 3 );
 		}
 		// Run late - after add_action('save_post',array('EM_Event_Recurring_Post_Admin','save_post'),10000,1);
@@ -170,7 +170,7 @@ class EM_Events extends Base {
 			return;
 		}
 
-		if ( $EM_Event = $this->parse_data( $post_id ) ) {
+		if ( 'event' === $post->post_type && $EM_Event = $this->parse_data( $post_id ) ) {
 			$response = ( new Webhooks( $this->version, $this->plugin_name ) )->call( $this->endpoint, $EM_Event );
 			// error_log( __METHOD__ . ': ' . json_encode( $response ) );
 		}
