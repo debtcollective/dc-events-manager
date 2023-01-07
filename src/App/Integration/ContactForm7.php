@@ -85,7 +85,7 @@ class ContactForm7 extends Base {
 		if ( isset( $this->endpoint ) && $this->rsvp_form && ! empty( $this->endpoint ) && ! empty( $this->rsvp_form ) ) {
 
 			\add_action( 'admin_init', array( $this, 'set_options' ) );
-			\add_action( 'acf/init', array( $this, 'register_fields' ) );
+			// \add_action( 'acf/init', array( $this, 'register_fields' ) );
 
 			\add_action( 'wpcf7_before_send_mail', array( $this, 'send_data' ), 10, 3 );
 			\add_filter( 'shortcode_atts_wpcf7', array( $this, 'add_atts' ), 10, 3 );
@@ -173,7 +173,7 @@ class ContactForm7 extends Base {
 							'id'    => '',
 						),
 						'message'           => \__( 'Display RSVP form on single event page', 'site-functionality' ),
-						'default_value'     => 1,
+						'default_value'     => 0,
 						'ui'                => 1,
 						'ui_on_text'        => '',
 						'ui_off_text'       => '',
