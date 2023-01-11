@@ -36,9 +36,16 @@ class Taxonomies extends Base {
 		 * This general class is always being instantiated as requested in the Bootstrap class
 		 *
 		 * @see Bootstrap::__construct
-		 *
 		 */
+		if ( defined( 'EM_GUTENBERG' ) && EM_GUTENBERG ) {
+			add_filter( 'em_ct_tags', array( $this, 'enable_block_editor' ) );
+			add_filter( 'em_ct_categories', array( $this, 'enable_block_editor' ) );
+		}
+	}
 
+	public function enable_block_editor( $args ) {
+		$args['show_in_rest'] = true;
+		return $args;
 	}
 
 }
