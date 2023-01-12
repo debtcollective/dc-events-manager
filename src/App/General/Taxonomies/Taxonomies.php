@@ -37,12 +37,16 @@ class Taxonomies extends Base {
 		 *
 		 * @see Bootstrap::__construct
 		 */
-		if ( defined( 'EM_GUTENBERG' ) && EM_GUTENBERG ) {
-			add_filter( 'em_ct_tags', array( $this, 'enable_block_editor' ) );
-			add_filter( 'em_ct_categories', array( $this, 'enable_block_editor' ) );
-		}
+		add_filter( 'em_ct_tags', array( $this, 'enable_block_editor' ) );
+		add_filter( 'em_ct_categories', array( $this, 'enable_block_editor' ) );
 	}
 
+	/**
+	 * Enable Rest API for Event Taxonomies
+	 *
+	 * @param array $args
+	 * @return  array $args
+	 */
 	public function enable_block_editor( $args ) {
 		$args['show_in_rest'] = true;
 		return $args;
