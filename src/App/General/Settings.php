@@ -41,8 +41,21 @@ class Settings extends Base {
 		 *
 		 */
 
+		/**
+		 * Enable REST API for 
+		 * @see https://wp-events-plugin.com/blog/2018/12/06/wordpress-5-0-and-gutenberg-compatibility/
+		 */
 		if( ! defined( 'EM_GUTENBERG' ) ) {
 			define( 'EM_GUTENBERG', true );
+		}
+
+		/**
+		 * Allow nexted conditional placeholders
+		 * @see https://wp-events-plugin.com/documentation/conditional-placeholders/
+		 * @since 1.0.2
+		 */
+		if( ! defined( 'EM_CONDITIONAL_RECURSIONS' ) ) {
+			define( 'EM_CONDITIONAL_RECURSIONS', 2 );
 		}
 	}
 
