@@ -55,7 +55,7 @@ class Settings extends Base {
 		 * @since 1.0.2
 		 */
 		if( ! defined( 'EM_CONDITIONAL_RECURSIONS' ) ) {
-			define( 'EM_CONDITIONAL_RECURSIONS', 2 );
+			define( 'EM_CONDITIONAL_RECURSIONS', 3 );
 		}
 
 		\add_action( 'admin_init', array( $this, 'set_options' ) );
