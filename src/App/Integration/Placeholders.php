@@ -62,11 +62,11 @@ class Placeholders extends Base {
 			);
 
 			$args['format'] = '<li id="post-#_EVENTPOSTID" class="event-container event{is_past} past{/is_past}{is_future} future{/is_future}{is_recurrence} is-recurring{/is_recurrence}{is_current_recurrence} is-current{/is_current_recurrence}">
-				{is_not_current_recurrence}<a href="#_EVENTURL" title="#_EVENTNAME" class="recurrences__event-title">{/is_not_current_recurrence}
-				{is_current_recurrence}<div class="recurrences__event-title">{/is_current_recurrence}
+				{is_not_current_recurrence}<h4 class="recurrences__event-title"><a href="#_EVENTURL" title="#_EVENTNAME">{/is_not_current_recurrence}
+				{is_current_recurrence}<h4 class="recurrences__event-title" aria-label="' . esc_html( 'Current event in series.', 'dc-events-manager' ) . '">{/is_current_recurrence}
 				#_EVENTNAME
-				{is_current_recurrence}</div>{/is_current_recurrence}
-				{is_not_current_recurrence}</a>{/is_not_current_recurrence}
+				{is_current_recurrence}</h4><!-- .recurrences__event-title -->{/is_current_recurrence}
+				{is_not_current_recurrence}</a></h4><!-- .recurrences__event-title -->{/is_not_current_recurrence}
 					<div class="event__date">
 						<time datetime="#_{Y-m-d H:i:s}">#_EVENTDATES</time>
 					</div>
