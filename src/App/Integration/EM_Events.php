@@ -275,6 +275,8 @@ class EM_Events extends Base {
 	 * @return array $return
 	 */
 	public function set_zoom_defaults( array $return ) {
+		$return['fields']['registrants_confirmation_email']['value'] = true;
+		$return['fields']['registrants_email_notification']['value'] = true;
 		$return['fields']['approval_type']['value'] = 0;
 		return $return;
 	}
