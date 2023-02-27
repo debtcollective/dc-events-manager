@@ -196,7 +196,7 @@ class EM_Events extends Base {
 		if ( $this->is_changed( $post_id, $post_after, $post_before ) ) {
 			if ( $EM_Event = $this->parse_data( $post_id ) ) {
 				$response = ( new Webhooks( $this->version, $this->plugin_name ) )->call( $this->endpoint, $EM_Event );
-				error_log( __METHOD__ . ': ' . json_encode( $response ) );
+				// error_log( __METHOD__ . ': ' . json_encode( $response ) );
 			}
 		}
 	}
