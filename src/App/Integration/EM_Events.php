@@ -154,7 +154,7 @@ class EM_Events extends Base {
 	 * @return void
 	 */
 	public function resave_recurring( int $post_id, \WP_Post $post, bool $update ) {
-		if ( 'event-recurring' != $post->post_type ) {
+		if ( 'event-recurring' !== $post->post_type || get_post_meta( $post_id, 'resaved_recurring', true ) ) {
 			return;
 		}
 		\add_post_meta( $post_id, 'resaved_recurring', date( 'c' ), true );
