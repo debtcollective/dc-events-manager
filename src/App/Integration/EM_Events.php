@@ -188,11 +188,11 @@ class EM_Events extends Base {
 	 * @return void
 	 */
 	public function update_data( int $post_id, \WP_Post $post_after, \WP_Post $post_before ) {
-		if ( \wp_is_post_revision( $post_id ) ) {
+		if ( \wp_is_post_autosave( $post_id ) || 'event' !== $post->post_type ) {
 			return;
 		}
 
-		if ( 'event' === \get_post_type( $post_id ) && $this->is_changed( $post_id, $post_after, $post_before ) ) {
+		if ( $this->is_changed( $post_id, $post_after, $post_before ) ) {
 			if ( $EM_Event = $this->parse_data( $post_id ) ) {
 				$response = ( new Webhooks( $this->version, $this->plugin_name ) )->call( $this->endpoint, $EM_Event );
 				error_log( __METHOD__ . ': ' . json_encode( $response ) );
