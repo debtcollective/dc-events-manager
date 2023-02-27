@@ -139,6 +139,7 @@ class EM_Events extends Base {
 			\add_action( 'post_updated', array( $this, 'update_data' ), 10, 3 );
 		}
 		// Run late - after add_action('save_post',array('EM_Event_Recurring_Post_Admin','save_post'),10000,1);
+		\add_action( 'save_post', array( $this, 'resave_recurring' ), 10001, 3 );
 
 		\add_filter( 'em_event_location_zoom_meeting_admin_fields_settings', array( $this, 'set_zoom_defaults' ) );
 	}
