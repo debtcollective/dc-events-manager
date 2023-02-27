@@ -146,12 +146,12 @@ class EM_Events extends Base {
 
 	/**
 	 * Resave recurring event to fix date/time sent to Zoom
-	 * 
+	 *
 	 * @uses https://developer.wordpress.org/reference/functions/add_post_meta/
 	 *
-	 * @param integer $post_ID
+	 * @param integer  $post_ID
 	 * @param \WP_Post $post
-	 * @param boolean $update
+	 * @param boolean  $update
 	 * @return void
 	 */
 	public function resave_recurring( int $post_id, \WP_Post $post, bool $update ) {
@@ -277,7 +277,7 @@ class EM_Events extends Base {
 	public function set_zoom_defaults( array $return ) {
 		$return['fields']['registrants_confirmation_email']['value'] = true;
 		$return['fields']['registrants_email_notification']['value'] = true;
-		$return['fields']['approval_type']['value'] = 0;
+		$return['fields']['approval_type']['value']                  = 0;
 		return $return;
 	}
 }
