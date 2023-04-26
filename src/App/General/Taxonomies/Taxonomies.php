@@ -7,7 +7,6 @@
 namespace DCEventsManager\App\General\Taxonomies;
 
 use DCEventsManager\Common\Abstracts\Base;
-use DCEventsManager\App\General\Taxonomies\EventCrmTag;
 
 /**
  * Class Taxonomies
@@ -37,11 +36,22 @@ class Taxonomies extends Base {
 		 * This general class is always being instantiated as requested in the Bootstrap class
 		 *
 		 * @see Bootstrap::__construct
-		 *
 		 */
-		$crm_tags = new EventCrmTag( $this->version, $this->plugin_name );
-		\add_action( 'init', array( $crm_tags, 'register' ), 100 );
-		// $crm_tags->settings();
+		\add_filter( 'em_ct_categories', array( $this, 'modify_taxonomy_args' ) );
+		\add_filter( 'em_ct_tags', array( $this, 'modify_taxonomy_args' ), 9 );
+
 	}
+
+	/**
+	 * Modify taxonomy args
+	 *
+	 * @param array $args
+	 * @return array $args
+	 */
+	public function modify_taxonomy_args( $args ) : array {
+		$args['show_in_rest'] = true;
+		return $args;
+	}
+
 
 }
