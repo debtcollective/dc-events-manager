@@ -540,7 +540,7 @@ const Edit = ( props ) => {
 	const NoPosts = () => {
 		return (
 			<div className="no-posts">
-				{ __( 'No posts', 'dc-events-manager' ) }
+				{ __( 'No events', 'dc-events-manager' ) }
 			</div>
 		)
 	}
