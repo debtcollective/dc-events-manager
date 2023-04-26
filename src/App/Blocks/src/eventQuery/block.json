@@ -21,7 +21,7 @@
 		},
 		"taxonomy": {
 			"type": "string",
-			"default": "event_tag"
+			"default": "event-tags"
 		},
 		"postType": {
 			"type": "string",
