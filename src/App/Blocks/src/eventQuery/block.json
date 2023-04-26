@@ -25,11 +25,7 @@
 		},
 		"postType": {
 			"type": "string",
-			"default": "an_event"
-		},
-		"metaKey": {
-			"type": "string",
-			"default": "start_date"
+			"default": "event"
 		},
 		"perPage": {
 			"type": "number",
