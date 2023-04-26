@@ -19,27 +19,23 @@ use DCEventsManager\App\General\PostTypes\PostTypes;
 class CustomFields extends Base {
 
 	/**
+	 * Post types
+	 */
+	public const POST_TYPES = array(
+		'event',
+		'event-recurring'
+	);
+
+	/**
 	 * Custom fields
 	 */
 	public const FIELDS = array(
-		'is_hidden',
-		'browser_url',
-		'an_id',
-		'instructions',
-		'start_date',
-		'end_date',
-		'timezone',
-		'featured_image',
-		'location_venue',
-		'location_latitude',
-		'location_longitude',
-		'status',
-		'visibility',
-		'an_campaign_id',
-		'internal_name',
-		'hidden',
-		'import_date',
-		'update_date'
+		'_event_location_type',
+		'_event_location_url_text',
+		'_location_id',
+		'_event_start',
+		'_event_end',
+		'_event_timezone',
 	);
 
 	/**
@@ -101,7 +97,7 @@ class CustomFields extends Base {
 		 * @see Bootstrap::__construct
 		 */
 		\add_action( 'acf/input/admin_enqueue_scripts', array( $this, 'enqueueScripts' ), 10, 0 );
-		// \add_action( 'init', array( $this, 'registerPostMeta' ) );
+		\add_action( 'init', array( $this, 'registerPostMeta' ) );
 		// \add_action( 'acf/init', array( $this, 'registerACFFields' ) );
 
 		// \add_filter( 'acf/load_field/name=is_an_event', array( $this, 'modifyIsAnEvent' ) );
@@ -190,20 +186,20 @@ class CustomFields extends Base {
 	public function registerPostMeta() {
 
 		foreach ( self::FIELDS as $field ) {
-			$boolean = array(
-				'is_an_event',
-				'is_hidden',
-				'hidden'
+			$numeric = array(
+				'_location_id'
 			);
-			\register_post_meta(
-				PostTypes::POST_TYPE['id'],
-				$field,
-				array(
-					'show_in_rest' => true,
-					'single'       => true,
-					'type'         => ( in_array( $field, $boolean ) ) ? 'boolean' : 'string',
-				)
-			);
+			foreach( self::POST_TYPES as $post_type ) {
+				\register_post_meta(
+					$post_type,
+					$field,
+					array(
+						'show_in_rest' => true,
+						'single'       => true,
+						'type'         => ( in_array( $field, $numeric ) ) ? 'boolean' : 'string',
+					)
+				);
+			}
 		}
 	}
 
