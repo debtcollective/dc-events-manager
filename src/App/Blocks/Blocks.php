@@ -19,7 +19,7 @@ use DCEventsManager\Common\Util\TemplateLoader;
  */
 class Blocks extends Base {
 
-	public static $loader_params = [];
+	public static $loader_params = array();
 
 	/**
 	 * Constructor.
@@ -41,40 +41,43 @@ class Blocks extends Base {
 		 * This general class is always being instantiated as requested in the Bootstrap class
 		 *
 		 * @see Bootstrap::__construct
-		 *
 		 */
 		/**
 		 * add_filter( 'DCEventsManager\App\Blocks\Blocks\LoaderParams', $params );
 		 */
-		self::$loader_params = \apply_filters( \get_class() . '\LoaderParams', [
-			'filter_prefix'             => 'dc_events_manager',
-			'plugin_directory'          => DCEVENTS_PLUGIN_DIR_PATH,
-			'plugin_template_directory' => 'src/App/Blocks/templates',
-			'theme_template_directory'  => 'template-parts/components',
-		] );
+		self::$loader_params = \apply_filters(
+			\get_class() . '\LoaderParams',
+			array(
+				'filter_prefix'             => 'dc_events_manager',
+				'plugin_directory'          => DCEVENTS_PLUGIN_DIR_PATH,
+				'plugin_template_directory' => 'src/App/Blocks/templates',
+				'theme_template_directory'  => 'template-parts/components',
+			)
+		);
 
 		/**
 		 * @link https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/#managing-block-categories
 		 */
 		if ( class_exists( '\WP_Block_Editor_Context' ) ) {
-			\add_filter( 'block_categories_all', [ $this, 'registerBlockCategory' ], 10, 2 );
+			\add_filter( 'block_categories_all', array( $this, 'registerBlockCategory' ), 10, 2 );
 		} else {
-			\add_filter( 'block_categories', [ $this, 'registerBlockCategory' ], 10, 2 );
+			\add_filter( 'block_categories', array( $this, 'registerBlockCategory' ), 10, 2 );
 		}
 
 		new Patterns( $this->version, $this->plugin_name );
 
-		\add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_blocks_scripts' ] );
+		\add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_blocks_scripts' ) );
 
-		include_once( \plugin_dir_path( __FILE__ ) . 'src/eventDate/index.php' );
-		include_once( \plugin_dir_path( __FILE__ ) . 'src/eventLocation/index.php' );
-		include_once( \plugin_dir_path( __FILE__ ) . 'src/eventTime/index.php' );
-		include_once( \plugin_dir_path( __FILE__ ) . 'src/eventQuery/index.php' );
-		include_once( \plugin_dir_path( __FILE__ ) . 'src/eventsComponent/index.php' );
-		include_once( \plugin_dir_path( __FILE__ ) . 'src/eventsTout/index.php' );
+		include_once \plugin_dir_path( __FILE__ ) . 'src/eventQuery/index.php';
+		include_once \plugin_dir_path( __FILE__ ) . 'src/eventsTout/index.php';
+		
+		// include_once \plugin_dir_path( __FILE__ ) . 'src/eventDate/index.php';
+		// include_once \plugin_dir_path( __FILE__ ) . 'src/eventLocation/index.php';
+		// include_once \plugin_dir_path( __FILE__ ) . 'src/eventTime/index.php';
+		// include_once \plugin_dir_path( __FILE__ ) . 'src/eventsComponent/index.php';
 
 		if ( function_exists( '\wp_set_script_translations' ) ) {
-			\add_action(  'init',		[ $this, 'setScriptTranslations' ] );
+			\add_action( 'init', array( $this, 'setScriptTranslations' ) );
 		}
 	}
 
