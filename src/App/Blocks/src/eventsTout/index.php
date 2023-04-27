@@ -39,7 +39,7 @@ function render( $attributes, $content, $block ) {
 }
 
 /**
- * Registers the `dc-events-manager/events` block on the server.
+ * Registers the `dc-events-manager/events-tout` block on the server.
  */
 function register() {
 	\register_block_type(
