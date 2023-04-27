@@ -8,14 +8,14 @@
  * that starts the plugin.
  *
  * @link              https://debtcollective.org
- * @since             1.1.0
+ * @since             1.0.0
  * @package           DC_Events_Manager
  *
  * @wordpress-plugin
  * Plugin Name:       Events Manager - Debt Collective Add-on
  * Plugin URI:        https://github.com/debtcollective/dc-events-manager
  * Description:       Adds custom functionality to Events Manager plugin.
- * Version:           1.0.2
+ * Version:           1.1.0
  * Author:            Debt Collective
  * Author URI:        https://debtcollective.org
  * License:           GPL-3.0
