@@ -19,6 +19,10 @@
 				"scope": "future"
 			}
 		},
+		"postsFound": {
+			"type": "number",
+			"default": 0
+		},
 		"taxonomy": {
 			"type": "string",
 			"default": "event-tags"

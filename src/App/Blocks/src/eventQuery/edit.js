@@ -73,7 +73,8 @@ const Edit = ( props ) => {
 		wrapperTagName,
 		tagName,
 		display,
-		scope
+		scope,
+		postsFound,
 	} = attributes;
 
 	const {
@@ -566,9 +567,23 @@ const Edit = ( props ) => {
 		} );
 	}
 
+	const updatePostsFound = () => {
+		if( !posts ) {
+			return;
+		}
+
+		setAttributes( { 
+			postsFound: posts.length  
+		} );
+	}
+
 	useEffect( () => {
         updateQuery();
     }, [ eventTags, perPage, orderby, scope ] );
+
+	useEffect( () => {
+        updatePostsFound();
+    }, [ posts, query ] );
 
 	useEffect( () => {
 		if ( ! queryId ) {
