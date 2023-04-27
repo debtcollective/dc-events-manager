@@ -44,9 +44,9 @@ function render( $attributes, $content, $block ) {
 function register() {
 	\register_block_type(
 		__DIR__,
-		[
-			'render_callback' 	=> __NAMESPACE__ . '\render',
-		]
+		array(
+			'render_callback' => __NAMESPACE__ . '\render',
+		)
 	);
 }
 add_action( 'init', __NAMESPACE__ . '\register' );
