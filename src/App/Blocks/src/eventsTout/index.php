@@ -20,20 +20,22 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return string
  */
 function render( $attributes, $content, $block ) {
+	$wrapper_attributes = \get_block_wrapper_attributes( array( 'class' => 'events-tout' ) );
+	$content = '';
 
-    // var_dump( $attributes, $content, $block );
-    
-    $wrapper_attributes = \get_block_wrapper_attributes( [ 'class' => 'events-tout' ] );
+	if( ( $query_block = \dcem_get_inner_block( $block ) ) && isset( $query_block['attrs']['postsFound'] ) ) {
+		$content .= '<div ' . $wrapper_attributes . '>';
 
-    $content = '<div ' . $wrapper_attributes . '>';
+		foreach ( $block->inner_blocks as $inner_block ) {
+			$content .= $inner_block->render();
+		}
+	
+		$content .= '</div><!-- .events-tout -->';
+	} else {
+		$content .= sprintf( '<!-- %s has no posts -->', $block->parsed_block['blockName'] );
+	}
 
-    foreach ( $block->inner_blocks as $inner_block ) { 
-        $content .= $inner_block->render(); 
-    }
-
-    $content .= '</div>';
-
-    return $content;
+	return $content;
 }
 
 /**
