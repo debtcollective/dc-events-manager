@@ -1,73 +1,125 @@
 <?php
 /**
  * Event Template
- * 
+ *
  * Override this template with one placed in {theme}/template-parts/components/event.php
  */
-$args = $data->args;
-$post_id = $data->id;
-$taxonomy = $data->args['taxonomy'];
-$date_format = $args['dateFormat'];
-$time_format = $args['timeFormat'];
-$default_timezone = \get_option( 'timezone_string' );
-$timezone = ( $tm = \get_post_meta( $post_id, 'timezone', true ) ) ? $tm : $default_timezone;
-$raw_start_date = \get_post_meta( $post_id, 'start_date', true );
-$raw_end_date = \get_post_meta( $post_id, 'end_date', true );
-$start_datetime = new \DateTime( $raw_start_date );
-$end_datetime = $raw_end_date ? new \DateTime( $raw_end_date ) : null;
-$formatted_start_date = $start_datetime->format( $date_format );
-$formatted_start_time = $start_datetime->format( $time_format );
-$formatted_end_time = $end_datetime ? $end_datetime->format( $time_format ) : null;
 
-/** Get timezone abbreviation */
-$generic_date = new \DateTime( $raw_start_date );
-$generic_date->setTimezone( new \DateTimeZone( $timezone ) );
-$timezone_abbr = $generic_date->format( 'T' );
+global $EM_Event;
+$args = $data->args;
+
+$post_id  = isset( $data->post_id ) ? (int) $data->post_id : get_the_id();
+$EM_Event = isset( $data->EM_Event ) ? $data->EM_Event : em_get_event( $post_id, 'post_id' );
+$taxonomy = 'event-tags';
+
+$start_date   = $EM_Event->event_start_date;
+$is_past      = $start_date < date( 'Y-m-d', time() );
+$is_recurring = property_exists( $EM_Event, 'recurrence_id' ) && $EM_Event->recurrence_id;
+$classes      = get_post_class( $is_past ? \esc_attr( 'past' ) : \esc_attr( 'future' ), $post_id );
+$classes[]    = 'event-container';
+$classes[]    = $is_recurring ? 'is-recurring' : '';
 ?>
 
-<<?php echo $args['tagName']; ?> <?php \post_class( 'event' ); ?>>
+<article id="post-<?php echo $post_id; ?>" class="<?php echo implode( ' ', $classes ); ?>">
+	<a href="<?php echo \esc_url( \get_permalink( $post_id ) ); ?>">
 
-    <a href="<?php echo \esc_url( \get_permalink() ); ?>">
-        <?php if( $args['showTags'] && \has_term( '', $taxonomy, $post_id ) ) : 
-            $tags = \wp_get_post_terms( $post_id, $taxonomy, [ 'fields' => 'names' ] );
-            ?>
+		<?php
+		if ( $args['display']['showTags'] ) :
+			?>
 
-            <div class="event__tag">
-                <?php echo \esc_html( $tags[0] ); ?>
-            </div>
+			<div class="event__tag">
+				<?php echo $EM_Event->output( '#_TAGNAME' ); ?>
+			</div>
 
-        <?php endif; ?>
+			<?php
+		endif;
+		?>
 
-        <h3 class="event__title<?php echo !$args['showTitle'] ? ' sr-only' : ''; ?>"><?php the_title(); ?></h3>
-            
-        <?php if( $args['showDate'] ) : ?>
-            
-            <div class="event__date">
-                <time dateTime=<?php echo \esc_attr( $raw_start_date ); ?>><?php echo $formatted_start_date; ?></time>
-            </div>
-            
-        <?php endif; ?>
+		<?php
+		if ( $args['display']['showFeaturedImage'] && ( $image_url = $EM_Event->image_url ) ) :
+			$image_id = \attachment_url_to_postid( $image_url );
+			?>
+			<picture className="event__media">
+				<?php echo wp_get_attachment_image( $image_id, 'medium' ); ?>
+			</picture>
 
-        <?php if( $args['showTime'] ) : ?>
-            
-            <div class="event__time event__time-start">
-                <?php 
-                    printf( '<time dateTime=%1$s>%2$s</time> %3$s <span class="timezone-abbr">%4$s</span>',
-                        \esc_attr( $raw_start_date ),
-                        $formatted_start_time,
-                        ( $formatted_end_time && $args['showEndTime'] ) ? sprintf( '<span class="separator">-</span> <time dateTime=%1$s>%2$s</time>', \esc_attr( $raw_end_date ), $formatted_end_time ) : '',
-                        $timezone_abbr 
-                    ); 
-                ?>
-            </div>
-            
-        <?php endif; ?>
+			<?php
+		endif;
+		?>
 
-        <?php if( $args['showLocation'] && ( $location = \get_post_meta( $post_id, 'location_venue', true ) ) ) : ?>
-            
-            <div class="event__location"><?php echo \esc_attr( $location ); ?></div>
-            
-        <?php endif; ?>
-    </a>
+		<?php
+		if ( $args['display']['showTitle'] ) :
+			?>
 
-</<?php echo ( $args['tagName'] ); ?>>
+			<h3 class="event__title"><?php echo $EM_Event->output( '#_EVENTNAME' ); ?></h3>
+
+			<?php
+		endif;
+		?>
+
+		<?php
+		if ( $args['display']['showDate'] ) :
+			?>
+
+			<div class="event__date">
+				<time datetime="<?php echo $EM_Event->output( '#_{Y-m-d H:i:s}' ); ?>"><?php echo $EM_Event->output( '#_{' . $args['dateFormat'] . '}' ); ?></time>
+			</div>
+
+			<?php
+		endif;
+		?>
+
+		<?php
+		if ( $args['display']['showTime'] ) :
+			?>
+
+			<div class="event__time">
+				<time datetime="<?php echo $EM_Event->output( '#_{Y-m-d H:i:s}' ); ?>"><?php echo $EM_Event->output( '#_{' . $args['timeFormat'] . '}' ); ?></time>
+
+				<?php
+				if ( $args['display']['showEndTime'] && ( $end_time = $EM_Event->event_end_time ) ) :
+					?>
+					<span className="separator"> - </span>
+					<time datetime="<?php echo $EM_Event->output( '#@Y-#@m-#@d #@H:#@i:#@s' ); ?>"><?php echo date( $args['timeFormat'], strtotime( $end_time ) ); ?></time>
+					<?php
+				endif;
+				?>
+
+				<span class="timezone"><?php echo $EM_Event->output( '#_{T}' ); ?></span>
+			</div>
+
+			<?php
+		endif;
+		?>
+
+		<?php
+		if ( $args['display']['showLocation'] ) :
+			?>
+
+			<div class="event__location">
+				<?php
+				if ( $EM_Event->has_location() ) :
+					?>
+
+					<?php dcem_physical_location( $EM_Event ); ?>
+
+					<?php
+				elseif ( $EM_Event->has_event_location() ) :
+					?>
+
+					<?php dcem_virtual_location( $EM_Event ); ?>
+
+					<?php
+				endif;
+				?>
+			</div>
+		   
+			<?php
+		endif;
+		?>
+
+	</a>
+
+</article><!-- #post-## -->
+
+
