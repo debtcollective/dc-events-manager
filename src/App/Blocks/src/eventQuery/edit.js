@@ -73,7 +73,8 @@ const Edit = ( props ) => {
 		wrapperTagName,
 		tagName,
 		display,
-		scope
+		scope,
+		postsFound,
 	} = attributes;
 
 	const {
@@ -515,22 +516,22 @@ const Edit = ( props ) => {
 				) }
 				{ showDate && (
 					<div className="event__date">
-						<time dateTime={ post.meta?.["start_date"] }>{ dateI18n( dateFormat, post.meta?.["start_date"] ) }</time>
+						<time dateTime={ post.meta?.["_event_start"] }>{ dateI18n( dateFormat, post.meta?.["_event_start"] ) }</time>
 					</div>
 				) }
 				{ showTime && (
 					<div className="event__time">
-						<time dateTime={ post.meta?.["start_date"] }>{ dateI18n( timeFormat, post.meta?.["start_date"] ) }</time>
-						{ post.meta?.["end_date"] && showEndTime && (
+						<time dateTime={ post.meta?.["_event_start"] }>{ dateI18n( timeFormat, post.meta?.["_event_start"] ) }</time>
+						{ post.meta?.["_event_end"] && showEndTime && (
 							<>
 								<span className="separator"> - </span>
-								<time dateTime={ post.meta?.["end_date"] }>{ dateI18n( timeFormat, post.meta?.["end_date"] ) }</time>
+								<time dateTime={ post.meta?.["_event_end"] }>{ dateI18n( timeFormat, post.meta?.["_event_end"] ) }</time>
 							</>
 						) }
 					</div>
 					) }
 				{ showLocation && (
-					<div className="event__location" dangerouslySetInnerHTML={{ __html: post.meta?.["location_venue"] }}></div>
+					<div className="event__location" dangerouslySetInnerHTML={{ __html: post.meta?.["_event_location_type"] }}></div>
 				) }
 				</a>
 			</article>
@@ -540,7 +541,7 @@ const Edit = ( props ) => {
 	const NoPosts = () => {
 		return (
 			<div className="no-posts">
-				{ __( 'No posts', 'dc-events-manager' ) }
+				{ __( 'No events', 'dc-events-manager' ) }
 			</div>
 		)
 	}
@@ -566,9 +567,23 @@ const Edit = ( props ) => {
 		} );
 	}
 
+	const updatePostsFound = () => {
+		if( !posts ) {
+			return;
+		}
+
+		setAttributes( { 
+			postsFound: posts.length  
+		} );
+	}
+
 	useEffect( () => {
         updateQuery();
     }, [ eventTags, perPage, orderby, scope ] );
+
+	useEffect( () => {
+        updatePostsFound();
+    }, [ posts, query ] );
 
 	useEffect( () => {
 		if ( ! queryId ) {

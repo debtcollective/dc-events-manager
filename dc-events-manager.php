@@ -8,7 +8,7 @@
  * that starts the plugin.
  *
  * @link              https://debtcollective.org
- * @since             1.0.0
+ * @since             1.1.0
  * @package           DC_Events_Manager
  *
  * @wordpress-plugin
@@ -36,7 +36,7 @@ use DCEventsManager\Deactivator as Deactivator;
  * Rename this for your plugin and update it as you release new versions.
  */
 const PLUGIN_NAME    = 'dc-events-manager';
-const PLUGIN_VERSION = '1.0.2';
+const PLUGIN_VERSION = '1.1.0';
 
 define( 'DCEVENTS_PLUGIN_DIR_PATH', \plugin_dir_path( __FILE__ ) );
 define( 'DCEVENTS_PLUGIN_URL', \plugin_dir_url( __FILE__ ) );

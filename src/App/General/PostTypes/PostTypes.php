@@ -16,10 +16,6 @@ use DCEventsManager\Common\Abstracts\Base;
  */
 class PostTypes extends Base {
 
-	public const POST_TYPE = array(
-		'id' => array( 'event', 'event-recurring' ),
-	);
-
 	/**
 	 * Constructor.
 	 *
@@ -42,7 +38,8 @@ class PostTypes extends Base {
 		 * @see Bootstrap::__construct
 		 */
 
-		\add_filter( 'em_cpt_event', array( $this, 'modify_event_cpt_args' ) );
+		\add_filter( 'em_cpt_event', array( $this, 'modify_event_args' ), 9 );
+		\add_filter( 'em_cpt_event_recurring', array( $this, 'modify_recurring_event_args' ), 9 );
 	}
 
 	/**
@@ -51,8 +48,23 @@ class PostTypes extends Base {
 	 * @param array $args
 	 * @return array $args
 	 */
-	public function modify_event_cpt_args( $args ) {
-		$args['description'] = '';
+	public function modify_event_args( $args ) : array {
+		$args['description']  = '';
+		$args['show_in_rest'] = true;
+		$args['rest_base']    = 'events';
+		return $args;
+	}
+
+	/**
+	 * Modify CPT Args
+	 *
+	 * @param array $args
+	 * @return array $args
+	 */
+	public function modify_recurring_event_args( $args ) : array {
+		$args['description']  = '';
+		$args['show_in_rest'] = true;
+		$args['rest_base']    = 'recurring-events';
 		return $args;
 	}
 

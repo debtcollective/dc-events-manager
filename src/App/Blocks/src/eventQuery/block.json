@@ -19,17 +19,17 @@
 				"scope": "future"
 			}
 		},
+		"postsFound": {
+			"type": "number",
+			"default": 0
+		},
 		"taxonomy": {
 			"type": "string",
-			"default": "event_tag"
+			"default": "event-tags"
 		},
 		"postType": {
 			"type": "string",
-			"default": "an_event"
-		},
-		"metaKey": {
-			"type": "string",
-			"default": "start_date"
+			"default": "event"
 		},
 		"perPage": {
 			"type": "number",
@@ -107,9 +107,9 @@
 		}
 	},
 	"providesContext": {
-		"queryId": "queryId",
-		"query": "query",
-		"layout": "layout"
+		"event-query/queryId": "queryId",
+		"event-query/query": "query",
+		"event-query/layout": "layout"
 	},
 	"supports": {
 		"html": false,
