@@ -107,9 +107,9 @@
 		}
 	},
 	"providesContext": {
-		"queryId": "queryId",
-		"query": "query",
-		"layout": "layout"
+		"event-query/queryId": "queryId",
+		"event-query/query": "query",
+		"event-query/layout": "layout"
 	},
 	"supports": {
 		"html": false,
