@@ -135,26 +135,30 @@ class EM_Events extends Base {
 		 * @see Bootstrap::__construct
 		 */
 		if ( isset( $this->endpoint ) || ! empty( $this->endpoint ) ) {
-			\add_action( 'save_post_event', array( $this, 'save_data' ), 10, 3 );
+			\add_action( 'save_post', array( $this, 'save_data' ), 10, 3 );
 			\add_action( 'post_updated', array( $this, 'update_data' ), 10, 3 );
 		}
 		// Run late - after add_action('save_post',array('EM_Event_Recurring_Post_Admin','save_post'),10000,1);
-		add_action( 'save_post', array( $this, 'resave_recurring' ), 20000, 3 );
+		\add_action( 'save_post', array( $this, 'resave_recurring' ), 10001, 3 );
+
+		\add_filter( 'em_event_location_zoom_meeting_admin_fields_settings', array( $this, 'set_zoom_defaults' ) );
 	}
 
 	/**
 	 * Resave recurring event to fix date/time sent to Zoom
 	 *
-	 * @param integer $post_ID
+	 * @uses https://developer.wordpress.org/reference/functions/add_post_meta/
+	 *
+	 * @param integer  $post_ID
 	 * @param \WP_Post $post
-	 * @param boolean $update
+	 * @param boolean  $update
 	 * @return void
 	 */
 	public function resave_recurring( int $post_id, \WP_Post $post, bool $update ) {
-		if ( $update || \wp_is_post_revision( $post_id ) || 'event-recurring' !== $post->post_type ) {
+		if ( 'event-recurring' !== $post->post_type || get_post_meta( $post_id, 'resaved_recurring', true ) ) {
 			return;
 		}
-		\update_post_meta( $post_id, 'resaved_recurring', date( 'c' ) );
+		\add_post_meta( $post_id, 'resaved_recurring', date( 'c' ), true );
 	}
 
 	/**
@@ -166,7 +170,7 @@ class EM_Events extends Base {
 	 * @return void
 	 */
 	public function save_data( int $post_id, \WP_Post $post, bool $update ) {
-		if ( \wp_is_post_revision( $post_id ) ) {
+		if ( 'event' !== $post->post_type || ! $update ) {
 			return;
 		}
 
@@ -185,14 +189,14 @@ class EM_Events extends Base {
 	 * @return void
 	 */
 	public function update_data( int $post_id, \WP_Post $post_after, \WP_Post $post_before ) {
-		if ( \wp_is_post_revision( $post_id ) ) {
+		if ( \wp_is_post_autosave( $post_id ) || 'event' !== $post->post_type ) {
 			return;
 		}
 
-		if ( 'event' === \get_post_type( $post_id ) && $this->is_changed( $post_id, $post_after, $post_before ) ) {
+		if ( $this->is_changed( $post_id, $post_after, $post_before ) ) {
 			if ( $EM_Event = $this->parse_data( $post_id ) ) {
 				$response = ( new Webhooks( $this->version, $this->plugin_name ) )->call( $this->endpoint, $EM_Event );
-				error_log( __METHOD__ . ': ' . json_encode( $response ) );
+				// error_log( __METHOD__ . ': ' . json_encode( $response ) );
 			}
 		}
 	}
@@ -262,5 +266,18 @@ class EM_Events extends Base {
 			error_log( $exception->getMessage() );
 			return false;
 		}
+	}
+
+	/**
+	 * Modify default zoom event settings
+	 *
+	 * @param array $return
+	 * @return array $return
+	 */
+	public function set_zoom_defaults( array $return ) {
+		$return['fields']['registrants_confirmation_email']['value'] = true;
+		$return['fields']['registrants_email_notification']['value'] = true;
+		$return['fields']['approval_type']['value']                  = 0;
+		return $return;
 	}
 }

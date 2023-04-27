@@ -14,8 +14,8 @@
  * @wordpress-plugin
  * Plugin Name:       Events Manager - Debt Collective Add-on
  * Plugin URI:        https://github.com/debtcollective/dc-events-manager
- * Description:       Sync and display events from Action Network.
- * Version:           1.0.0
+ * Description:       Adds custom functionality to Events Manager plugin.
+ * Version:           1.0.2
  * Author:            Debt Collective
  * Author URI:        https://debtcollective.org
  * License:           GPL-3.0

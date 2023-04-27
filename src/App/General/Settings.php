@@ -41,9 +41,36 @@ class Settings extends Base {
 		 *
 		 */
 
+		/**
+		 * Enable REST API for 
+		 * @see https://wp-events-plugin.com/blog/2018/12/06/wordpress-5-0-and-gutenberg-compatibility/
+		 */
 		if( ! defined( 'EM_GUTENBERG' ) ) {
 			define( 'EM_GUTENBERG', true );
 		}
+
+		/**
+		 * Allow nexted conditional placeholders
+		 * @see https://wp-events-plugin.com/documentation/conditional-placeholders/
+		 * @since 1.0.2
+		 */
+		if( ! defined( 'EM_CONDITIONAL_RECURSIONS' ) ) {
+			define( 'EM_CONDITIONAL_RECURSIONS', 3 );
+		}
+
+		\add_action( 'admin_init', array( $this, 'set_options' ) );
+	}
+
+	/**
+	 * Turn off built-in registration
+	 *
+	 * @link https://developer.wordpress.org/reference/functions/update_option/
+	 *
+	 * @return void
+	 */
+	public function set_options() {
+		\update_option( 'dbem_rsvp_enabled', 0 );
+		\update_option( 'dbem_cp_locations_has_archive', false );
 	}
 
 }

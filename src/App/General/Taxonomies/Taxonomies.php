@@ -37,9 +37,8 @@ class Taxonomies extends Base {
 		 *
 		 * @see Bootstrap::__construct
 		 */
-		\add_filter( 'em_ct_categories', array( $this, 'modify_taxonomy_args' ) );
-		\add_filter( 'em_ct_tags', array( $this, 'modify_taxonomy_args' ), 9 );
-
+		\add_filter( 'em_ct_categories', array( $this, 'enable_block_editor' ) );
+		\add_filter( 'em_ct_tags', array( $this, 'enable_block_editor' ), 9 );
 	}
 
 	/**
@@ -48,10 +47,9 @@ class Taxonomies extends Base {
 	 * @param array $args
 	 * @return array $args
 	 */
-	public function modify_taxonomy_args( $args ) : array {
+	public function enable_block_editor( $args ) : array {
 		$args['show_in_rest'] = true;
 		return $args;
 	}
-
 
 }
