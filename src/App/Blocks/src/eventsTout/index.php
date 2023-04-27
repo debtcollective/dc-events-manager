@@ -15,8 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Render Block
  *
- * @param array $block_attributes
+ * @param array  $block_attributes
  * @param string $content
+ * @param object $block
  * @return string
  */
 function render( $attributes, $content, $block ) {
