@@ -4,7 +4,7 @@
  * Template Tags
  *
  * @link       https://debtcollective.org
- * @since      1.0.0
+ * @since      1.1.0
  *
  * @package    DC_Events_Manager
  */
@@ -15,6 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Render Virtual Event Location
+ * 
+ * @since 1.1.0
  *
  * @param obj   $EM_Event
  * @param array $args
@@ -64,6 +66,8 @@ function dcem_virtual_location( $EM_Event, $args = array() ) {
  *
  * @link https://wp-events-plugin.com/documentation/placeholders/
  * @link https://wp-events-plugin.com/documentation/location-types/
+ * 
+ * @since 1.1.0
  *
  * @param object $EM_Event
  * @param array  $args
@@ -88,6 +92,8 @@ function dcem_physical_location( $EM_Event ) {
 
 /**
  * Get parsed inner block
+ * 
+ * @since 1.1.0
  *
  * @param object $block
  * @param string $blockName
