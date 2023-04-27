@@ -85,3 +85,23 @@ function dcem_physical_location( $EM_Event ) {
 	</div>
 	<?php
 }
+
+/**
+ * Get parsed inner block
+ *
+ * @param object $block
+ * @param string $blockName
+ * @return mixed array $inner_block->parsed_block || bool false
+ */
+function dcem_get_inner_block( $block, $blockName = 'dc-events-manager/event-query' ) {
+	$return = false;
+
+	foreach ( $block->inner_blocks as $inner_block ) {
+		$parsed = $inner_block->parsed_block;
+        if( $blockName === $parsed['blockName'] ) {
+			$return = $parsed;
+		}
+	}
+
+	return $return;
+}
