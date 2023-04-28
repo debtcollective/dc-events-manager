@@ -8,7 +8,7 @@ import { __ } from '@wordpress/i18n';
  * Register Custom Block Collection
  */
 registerBlockCollection( 'dc-events-manager', { 
-    title: __( 'Action Network Events', 'dc-events-manager' ),
+    title: __( 'Debt Collective', 'dc-events-manager' ),
 	icon: 'calendar-alt'
 } );
 
