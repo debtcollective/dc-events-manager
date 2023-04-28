@@ -38,6 +38,7 @@
 				 'core/heading',
 				 {
 					 className: 'taxonomy-label',
+					 content: __( 'Upcoming Events', 'dc-events-manager' ),
 					 level: 2,
 					 placeholder: __( 'Add Title...', 'dc-events-manager' ),
 				 },
@@ -52,7 +53,7 @@
 			 [
 				 'dc-events-manager/event-query',
 				 {
-					className: 'events-by-tag',
+					className: 'events-tout__list events__list',
 					query: {
 						 per_page: 3,
 						 order: 'desc',
