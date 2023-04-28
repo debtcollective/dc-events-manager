@@ -9,6 +9,7 @@
  import metadata from './block.json';
  import Edit from './edit';
  import Save from './save';
+ import icon from './icon';
 
  //  Import CSS.
 // import './editor.scss';
