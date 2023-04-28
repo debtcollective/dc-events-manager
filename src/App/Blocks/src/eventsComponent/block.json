@@ -21,13 +21,15 @@
             "gradients": false,
             "link": false
         },
+        "html": false,
         "customClassName": true,
         "defaultStylePicker": false,
         "__experimentalLayout": false
     },
     "attributes": {
         "tagName": {
-			"type": "div"
+			"type": "string",
+            "default": "section"
 		}
     },
     "variations": [],
