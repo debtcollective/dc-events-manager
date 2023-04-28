@@ -15,7 +15,7 @@
  * Plugin Name:       Events Manager - Debt Collective Add-on
  * Plugin URI:        https://github.com/debtcollective/dc-events-manager
  * Description:       Adds custom functionality to Events Manager plugin.
- * Version:           1.1.0
+ * Version:           1.1.1
  * Author:            Debt Collective
  * Author URI:        https://debtcollective.org
  * License:           GPL-3.0
@@ -36,7 +36,7 @@ use DCEventsManager\Deactivator as Deactivator;
  * Rename this for your plugin and update it as you release new versions.
  */
 const PLUGIN_NAME    = 'dc-events-manager';
-const PLUGIN_VERSION = '1.1.0';
+const PLUGIN_VERSION = '1.1.1';
 
 define( 'DCEVENTS_PLUGIN_DIR_PATH', \plugin_dir_path( __FILE__ ) );
 define( 'DCEVENTS_PLUGIN_URL', \plugin_dir_url( __FILE__ ) );

@@ -17,21 +17,21 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @param array $block_attributes
  * @param string $content
+ * @param object $block
  * @return string
  */
 function render( $attributes, $content, $block ) {
-
-    // var_dump( $attributes, $content, $block );
-    
+    $tagName = isset( $attributes['tagName'] ) ? \esc_attr( $attributes['tagName'] ) : \esc_attr( 'section' );
+    $className = isset( $attributes['className'] ) ? \esc_attr( $attributes['className'] ) : \esc_attr( 'dc-events-manager-events' );
     $wrapper_attributes = \get_block_wrapper_attributes();
 
-    $content = '<div ' . $wrapper_attributes . '>';
+    $content = sprintf( '<%s %s>', $tagName, $wrapper_attributes );
 
     foreach ( $block->inner_blocks as $inner_block ) { 
         $content .= $inner_block->render(); 
     }
 
-    $content .= '</div>';
+    $content .= sprintf( '</%s><!-- .%s -->', $tagName, $className );
 
     return $content;
 }

@@ -8,7 +8,7 @@ import { __ } from '@wordpress/i18n';
  * Register Custom Block Collection
  */
 registerBlockCollection( 'dc-events-manager', { 
-    title: __( 'Action Network Events', 'dc-events-manager' ),
+    title: __( 'Debt Collective', 'dc-events-manager' ),
 	icon: 'calendar-alt'
 } );
 
@@ -21,15 +21,16 @@ import './variations';
 
 import * as query from './eventQuery';
 import * as eventsTout from './eventsTout';
+import * as eventsComponent from './eventsComponent';
 
 // import * as date from './eventDate';
-// import * as eventsComponent from './eventsComponent';
 // import * as location from './eventLocation';
 // import * as time from './eventTime';
 
 const blocks = [
+	query,
 	eventsTout,
-	query
+	eventsComponent,
 ];
 
 /**
