@@ -56,7 +56,7 @@ const Edit = ( props ) => {
 			<InnerBlocks
 				allowedBlocks={ ALLOWED_BLOCKS }
 				template={ TEMPLATE }
-				templateLock="all"
+				orientation="horizontal"
 			/>
 		</div>
 	);

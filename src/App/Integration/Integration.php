@@ -45,7 +45,7 @@ class Integration extends Base {
 		$conditionals = new Conditionals( $this->version, $this->plugin_name );
 		$placeholders = new Placeholders( $this->version, $this->plugin_name );
 		$webhooks = new Webhooks( $this->version, $this->plugin_name );
-
+		$rest = new RestFilters( $this->version, $this->plugin_name );
 	}
 
 }

@@ -1,8 +1,8 @@
-=== Action Network Events ===
+=== Events Manager Addon for Debt Collective ===
 Author: Debt Collective
 Author URI: https://debtcollective.org
 Contributors: misfist
-Tags: action network, events, synchronization
+Tags: events, events manager
 Requires at least: 5.8
 Tested up to: 5.8
 Requires PHP: 7.4
